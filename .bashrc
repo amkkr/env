@@ -172,3 +172,6 @@ export GO111MODULE=on
 
 # pkgconfig path
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+
+# Composer path
+export PATH=~/.config/composer/vendor/bin:$PATH
