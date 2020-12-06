@@ -2,14 +2,14 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-# If not running interactively, don't do anything
+#load ~/bin
+export PATH=$PATH:~/bin
 
+# If not running interactively, don't do anything
 case $- in
     *i*) ;;
       *) return;;
 esac
-
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/share/games:/usr/local/sbin:/usr/sbin:/sbin:~/.local/bin:/snap/bin:$PATH
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -30,8 +30,12 @@ shopt -s checkwinsize
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
 
+
 # make less more friendly for non-text input files, see lesspipe(1)
 #[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
@@ -40,13 +44,13 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-force_color_prompt=yes
+#force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -60,32 +64,20 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1="\[\033[0;31m\]\342\224\214\342\224\200\$([[ \$? != 0 ]] && echo \"[\[\033[0;31m\]\342\234\227\[\033[0;37m\]]\342\224\200\")[$(if [[ ${EUID} == 0 ]]; then echo '\[\033[01;31m\]root\[\033[01;33m\]@\[\033[01;96m\]\h'; else echo '\[\033[0;39m\]\u\[\033[01;33m\]@\[\033[01;96m\]\h'; fi)\[\033[0;31m\]]\342\224\200[\[\033[0;32m\]\w\[\033[0;31m\]]\n\[\033[0;31m\]\342\224\224\342\224\200\342\224\200\342\225\274 \[\033[0m\]\[\e[01;33m\]\\$\[\e[0m\]"
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-    PS1='┌──[\u@\h]─[\w]\n└──╼ \$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
-
-# Set 'man' colors
-if [ "$color_prompt" = yes ]; then
-	man() {
-	env \
-	LESS_TERMCAP_mb=$'\e[01;31m' \
-	LESS_TERMCAP_md=$'\e[01;31m' \
-	LESS_TERMCAP_me=$'\e[0m' \
-	LESS_TERMCAP_se=$'\e[0m' \
-	LESS_TERMCAP_so=$'\e[01;44;33m' \
-	LESS_TERMCAP_ue=$'\e[0m' \
-	LESS_TERMCAP_us=$'\e[01;32m' \
-	man "$@"
-	}
-fi
-
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
+source ~/.git-completion.bash
+source ~/.git-prompt.sh
+GIT_PS1_SHOWDIRTYSTATE=true
+
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\033[0;31m\]\342\224\214\342\224\200\$([[ \$? != 0 ]] && echo \"[\[\033[0;31m\]\342\234\227\[\033[0;37m\]]\342\224\200\")[$(if [[ ${EUID} == 0 ]]; then echo '\[\033[01;31m\]root\[\033[01;33m\]@\[\033[01;96m\]\h'; else echo '\[\033[0;39m\]\u\[\033[01;33m\]@\[\033[01;96m\]\h'; fi)\[\033[0;31m\]]\342\224\200[\[\033[0;32m\]\w\[\033[0;31m\]]\n\[\033[0;31m\]\342\224\224\342\224\200\342\224\200\342\225\274 \[\033[0m\]\[\e[01;33m\]\\$\[\e[0m\]"
+	PS1='\[\e[0;37m\][\[\e[m\]\[\e[0;32m\]\u\[\e[m\]\[\e[0;37m\]@\[\e[m\]\[\e[0;33m\]\h:\[\e[m\]\[\e[1;35m\]\w\[\e[m\]\[\e[0;37m\]]\[\e[m\]\n\[\e[0;36m\]$(__git_ps1) \[\e[m\]\[\e[0;37m\]\$\[\e[m\]>'
     ;;
 *)
     ;;
@@ -95,14 +87,20 @@ esac
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    alias dir='dir --color=auto'
-    alias vdir='vdir --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
 
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
 
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -124,78 +122,21 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# If this is an xterm set more declarative titles 
-# "dir: last_cmd" and "actual_cmd" during execution
-# If you want to exclude a cmd from being printed see line 156
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\$(print_title)\a\]$PS1"
-    __el_LAST_EXECUTED_COMMAND=""
-    print_title () 
-    {
-        __el_FIRSTPART=""
-        __el_SECONDPART=""
-        if [ "$PWD" == "$HOME" ]; then
-            __el_FIRSTPART=$(gettext --domain="pantheon-files" "Home")
-        else
-            if [ "$PWD" == "/" ]; then
-                __el_FIRSTPART="/"
-            else
-                __el_FIRSTPART="${PWD##*/}"
-            fi
-        fi
-        if [[ "$__el_LAST_EXECUTED_COMMAND" == "" ]]; then
-            echo "$__el_FIRSTPART"
-            return
-        fi
-        #trim the command to the first segment and strip sudo
-        if [[ "$__el_LAST_EXECUTED_COMMAND" == sudo* ]]; then
-            __el_SECONDPART="${__el_LAST_EXECUTED_COMMAND:5}"
-            __el_SECONDPART="${__el_SECONDPART%% *}"
-        else
-            __el_SECONDPART="${__el_LAST_EXECUTED_COMMAND%% *}"
-        fi 
-        printf "%s: %s" "$__el_FIRSTPART" "$__el_SECONDPART"
-    }
-    put_title()
-    {
-        __el_LAST_EXECUTED_COMMAND="${BASH_COMMAND}"
-        printf "\033]0;%s\007" "$1"
-    }
-    
-    # Show the currently running command in the terminal title:
-    # http://www.davidpashley.com/articles/xterm-titles-with-bash.html
-    update_tab_command()
-    {
-        # catch blacklisted commands and nested escapes
-        case "$BASH_COMMAND" in 
-            *\033]0*|update_*|echo*|printf*|clear*|cd*)
-            __el_LAST_EXECUTED_COMMAND=""
-                ;;
-            *)
-            put_title "${BASH_COMMAND}"
-            ;;
-        esac
-    }
-    preexec_functions+=(update_tab_command)
-    ;;
-*)
-    ;;
-esac
+#git prompt get
+if [ ! -f ~/.git-completion.bash ] || [ ! ~/.git-prompt.sh ]; then
+    wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O ~/.git-completion.bash
+    chmod a+x ~/.git-completion.bash
+
+    wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -O ~/.git-prompt.sh
+    chmod a+x ~/.git-prompt.sh
+fi
+
 
 ##### My Aliases ####
-. ~/sh/scale.sh
 alias python='python3'
 
 #update
-alias upd='\
-sudo apt -y update && \
-sudo apt -y upgrade && \
-sudo apt -y dist-upgrade && \
-sudo apt -y autoremove &&\
-sudo apt -y autoclean && \
-sudo apt -y clean'
-
+alias upd='sudo zypper -n ref && sudo zypper -n dup && sudo zypper -n patch'
 
 # some more ls aliases
 alias ll='ls -lh'
@@ -209,41 +150,25 @@ alias fucking='sudo'
 # cd aliases
 alias cdh='cd ~/'
 alias cddc='cd ~/Documents'
-alias cdgo='cd ~/Documents/go/'
-alias cdcp='cd ~/Documents/Cpp/'
-alias cdcpp='cd ~/Documents/Cpp/'
-alias cdcs='cd ~/Documents/C#/'
-alias cdc#='cd ~/Documents/C#/'
-alias cdpy='cd ~/Documents/Python/'
 alias cddw='cd ~/Downloads'
 alias cdpic='cd ~/Pictures'
-alias cdpri='cd ~/private'
-alias cdd='cd /media/amanokokoro/ボリューム'
 
 # file
 alias cacheclear='sudo sysctl -w vm.drop_caches=3'
-alias openzip='unzip -qq'
 alias upr='unar -q -o ~/private'
 alias readpdf='evince'
-alias cjp='convert `ls -v`'
-alias cpn='convert `ls -v`'
-alias helpfile='cat ~/Documents/filecommand.txt'
+alias cjp='magick `ls -v`'
+alias cpn='magick `ls -v`'
 
 # nano
 alias nano='nano -w'
 
 # GOPATH
+GOENV_DISABLE_GOPATH=1
 export PATH=$PATH:/usr/local/go/bin
-
-# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/amanokokoro/.sdkman"
-[[ -s "/home/amanokokoro/.sdkman/bin/sdkman-init.sh" ]] && source "/home/amanokokoro/.sdkman/bin/sdkman-init.sh"
-
-#Rust path
-export PATH=$PATH:$HOME/.cargo/bin
+#export PATH=$PATH:/usr/lib64/go/1.14
+export PATH=$PATH:/home/onesilver/go/bin
+export GO111MODULE=on
 
 # pkgconfig path
-export PKG_CONFIG_PATH==/usr/local/lib/pkgconfig
-
-#Docker Rootless
-export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
