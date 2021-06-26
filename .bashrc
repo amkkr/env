@@ -133,7 +133,6 @@ fi
 
 
 ##### My Aliases ####
-alias python='python3'
 
 #update
 alias upd='sudo zypper -n ref && sudo zypper -n dup && sudo zypper -n patch'
@@ -160,18 +159,3 @@ alias readpdf='evince'
 alias cjp='magick `ls -v`'
 alias cpn='magick `ls -v`'
 
-# nano
-alias nano='nano -w'
-
-# GOPATH
-GOENV_DISABLE_GOPATH=1
-export PATH=$PATH:/usr/local/go/bin
-#export PATH=$PATH:/usr/lib64/go/1.14
-export PATH=$PATH:/home/onesilver/go/bin
-export GO111MODULE=on
-
-# pkgconfig path
-export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
-
-# Composer path
-export PATH=~/.config/composer/vendor/bin:$PATH
