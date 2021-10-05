@@ -12,4 +12,6 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 Plug 'mattn/vim-lsp-settings'
 
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 call plug#end()
