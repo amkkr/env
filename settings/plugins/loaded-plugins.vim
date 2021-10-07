@@ -1,16 +1,20 @@
 call plug#begin('~/.local/share/nvim/plugged')
+" カラースキーム
+Plug 'tomasr/molokai'
 
+" ステータスラインを色付け
+Plug 'itchyny/lightline.vim'
+
+" LSP設定集と自動保管
 Plug 'neovim/nvim-lspconfig'
-
 Plug 'nvim-lua/completion-nvim'
-set completeopt=menuone,noinsert,noselect
-set shortmess+=c
 
+" LSインストール周り自動化
 Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-
 Plug 'mattn/vim-lsp-settings'
+
+" シンタックス、色付け、インデント等
+Plug 'sheerun/vim-polyglot'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'

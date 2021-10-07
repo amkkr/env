@@ -8,4 +8,5 @@ set hls
 set incsearch
 set cmdheight=2
 set laststatus=2
+set noshowmode
 set clipboard+=unnamedplus
