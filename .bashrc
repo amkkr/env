@@ -131,11 +131,16 @@ if [ ! -f ~/.git-completion.bash ] || [ ! ~/.git-prompt.sh ]; then
     chmod a+x ~/.git-prompt.sh
 fi
 
+#fzf get
+export XDG_CACHE_HOME=".cache"
+if [ ! -e ~/.cache/fzf ]; then
+    git clone https://github.com/junegunn/fzf "$XDG_CACHE_HOME/fzf"
+    $XDG_CACHE_HOME/fzf/install --xdg --no-key-bindings --completion --no-update-rc
+fi
 
 ##### My Aliases ####
-
 #update
-alias upd='sudo zypper -n ref && sudo zypper -n dup && sudo zypper -n patch'
+alias upd='sudo zypper ref && sudo zypper up'
 
 # some more ls aliases
 alias ll='ls -lh'
@@ -152,10 +157,10 @@ alias cddc='cd ~/Documents'
 alias cddw='cd ~/Downloads'
 alias cdpic='cd ~/Pictures'
 
-# file
-alias cacheclear='sudo sysctl -w vm.drop_caches=3'
-alias upr='unar -q -o ~/private'
-alias readpdf='evince'
-alias cjp='magick `ls -v`'
-alias cpn='magick `ls -v`'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export TERM=xterm-256color
 
