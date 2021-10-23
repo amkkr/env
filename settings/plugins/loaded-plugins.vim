@@ -1,5 +1,6 @@
 call plug#begin('~/.local/share/nvim/plugged')
-" カラースキーム
+
+"Color Scheme 
 Plug 'tomasr/molokai'
 
 " ステータスラインを色付け
