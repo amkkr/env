@@ -8,8 +8,8 @@ sudo zypper install code-insiders
 
 # git settings
 sudo zypper in git
-git config --global user.name AmanoKokoro
-git config --global user.email 55781271+AmanoKokoro@users.noreply.github.com
+git config --global user.name
+git config --global user.email 
 
 ssh-keygen -t ed25519 -C $(git config --global user.email)
 eval "$(ssh-agent -s)"
