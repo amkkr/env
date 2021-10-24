@@ -4,6 +4,7 @@
 
 #load ~/bin
 export PATH=$PATH:~/bin
+export XDG_CACHE_HOME=~/.cache
 
 # If not running interactively, don't do anything
 case $- in
@@ -101,30 +102,8 @@ fi
 
 #eval "$(ssh-agent -s)"
 
-##### My Aliases ####
-#update
-alias upd='sudo zypper ref && sudo zypper up'
-
-# some more ls aliases
-alias ll='ls -lh'
-alias la='ls -lha'
-alias l='ls -CF'
-alias _='sudo'
-alias _i='sudo -i'
-alias please='sudo'
-alias fucking='sudo'
-
-# cd aliases
-alias cdh='cd ~/'
-alias cddc='cd ~/Documents'
-alias cddw='cd ~/Downloads'
-alias cdpic='cd ~/Pictures'
-
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export TERM=xterm-256color
-
-alias code='code-insiders --disable-gpu'
