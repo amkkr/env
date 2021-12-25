@@ -1,6 +1,7 @@
 
 #update
-alias upd='sudo apt -y update &&sudo apt -y upgrade && sudo apt -y autoremove && sudo apt -y autoclean'
+#alias upd='sudo apt -y update &&sudo apt -y upgrade && sudo apt -y autoremove && sudo apt -y autoclean'
+alias upd='sudo zypper ref && sudo zypper dup'
 
 # some more ls aliases
 alias ll='ls -lh'
