@@ -20,4 +20,10 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+"
+" COCスニペット
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" ファイルツリー
+Plug 'preservim/nerdtree'
 call plug#end()
