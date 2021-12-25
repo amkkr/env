@@ -7,8 +7,8 @@ export PATH=$PATH:~/bin
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+  *i*) ;;
+  *) return;;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -37,14 +37,9 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+  xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # enable git prompt
@@ -53,23 +48,23 @@ source ~/.git-prompt.sh
 GIT_PS1_SHOWDIRTYSTATE=true
 
 case "$TERM" in
-xterm*|rxvt*)
-	PS1='\[\e[0;37m\][\[\e[m\]\[\e[0;32m\]\u\[\e[m\]\[\e[0;37m\]@\[\e[m\]\[\e[0;33m\]\h:\[\e[m\]\[\e[1;35m\]\w\[\e[m\]\[\e[0;37m\]]\[\e[m\]\n\[\e[0;36m\]$(__git_ps1) \[\e[m\]\[\e[0;37m\]\$\[\e[m\]>'
+  xterm*|rxvt*)
+    PS1='\[\e[0;37m\][\[\e[m\]\[\e[0;32m\]\u\[\e[m\]\[\e[0;37m\]@\[\e[m\]\[\e[0;33m\]\h:\[\e[m\]\[\e[1;35m\]\w\[\e[m\]\[\e[0;37m\]]\[\e[m\]\n\[\e[0;36m\]$(__git_ps1) \[\e[m\]\[\e[0;37m\]\$\[\e[m\]>'
     ;;
-*)
+  *)
     ;;
 esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+  #alias dir='dir --color=auto'
+  #alias vdir='vdir --color=auto'
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
 fi
 
 # colored GCC warnings and errors
@@ -85,7 +80,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+  . ~/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -101,30 +96,9 @@ fi
 
 #eval "$(ssh-agent -s)"
 
-##### My Aliases ####
-#update
-alias upd='sudo zypper ref && sudo zypper up'
-
-# some more ls aliases
-alias ll='ls -lh'
-alias la='ls -lha'
-alias l='ls -CF'
-alias _='sudo'
-alias _i='sudo -i'
-alias please='sudo'
-alias fucking='sudo'
-
-# cd aliases
-alias cdh='cd ~/'
-alias cddc='cd ~/Documents'
-alias cddw='cd ~/Downloads'
-alias cdpic='cd ~/Pictures'
-
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export TERM=xterm-256color
 
-alias code='code-insiders --disable-gpu'
