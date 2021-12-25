@@ -4,6 +4,7 @@
 
 #load ~/bin
 export PATH=$PATH:~/bin
+export XDG_CACHE_HOME=~/.cache
 
 # If not running interactively, don't do anything
 case $- in
@@ -101,4 +102,3 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export TERM=xterm-256color
-
