@@ -1,8 +1,8 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 "Color Scheme 
-"Plug 'tomasr/molokai'
-Plug 'tanvirtin/monokai.nvim'
+Plug 'tomasr/molokai'
+"Plug 'tanvirtin/monokai.nvim'
 
 " ステータスラインを色付け
 Plug 'itchyny/lightline.vim'
