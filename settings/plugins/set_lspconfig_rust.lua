@@ -1,3 +1,4 @@
+--[[
 local nvim_lsp = require'lspconfig'
 
 local on_attach = function(client)
@@ -21,4 +22,5 @@ nvim_lsp.rust_analyzer.setup({
         }
     }
 })
+]]--
 
