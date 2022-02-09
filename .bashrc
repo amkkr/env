@@ -5,6 +5,7 @@
 #load ~/bin
 export PATH=$PATH:~/bin
 export XDG_CACHE_HOME=~/.cache
+export VISUAL=code
 
 # If not running interactively, don't do anything
 case $- in
@@ -27,16 +28,13 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
-
-
-# make less more friendly for non-text input files, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+  debian_chroot=$(cat /etc/debian_chroot)
+fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
@@ -50,7 +48,7 @@ GIT_PS1_SHOWDIRTYSTATE=true
 
 case "$TERM" in
   xterm*|rxvt*)
-    PS1='\[\e[0;37m\][\[\e[m\]\[\e[0;32m\]\u\[\e[m\]\[\e[0;37m\]@\[\e[m\]\[\e[0;33m\]\h:\[\e[m\]\[\e[1;35m\]\w\[\e[m\]\[\e[0;37m\]]\[\e[m\]\n\[\e[0;36m\]$(__git_ps1) \[\e[m\]\[\e[0;37m\]\$\[\e[m\]>'
+    PS1='\[\e[0;37m\][\[\e[m\]\[\e[1;32m\]\u\[\e[m\]\[\e[0;37m\]@\[\e[m\]\[\e[1;32m\]\h:\[\e[m\]\[\e[0;36m\]\w\[\e[m\]\[\e[0;37m\]]\[\e[m\]\n\[\e[0;36m\]$(__git_ps1) \[\e[m\]\[\e[0;37m\]\$\[\e[m\]>'
     ;;
   *)
     ;;
@@ -95,10 +93,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-#eval "$(ssh-agent -s)"
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export TERM=xterm-256color

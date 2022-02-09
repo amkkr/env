@@ -1,6 +1,5 @@
 
 #update
-#alias upd='sudo apt -y update &&sudo apt -y upgrade && sudo apt -y autoremove && sudo apt -y autoclean'
 alias upd='sudo zypper ref && sudo zypper dup'
 
 # some more ls aliases
@@ -18,4 +17,10 @@ alias cddc='cd ~/Documents'
 alias cddw='cd ~/Downloads'
 alias cdpic='cd ~/Pictures'
 
-alias code='code-insiders --disable-gpu'
+alias cacheclear='sudo sysctl -w vm.drop_caches=3'
+alias cjp='convert `ls -v`'
+alias cpn='convert `ls -v`'
+# alias code='code-insiders --disable-gpu'
+
+# need Develop
+unset HOST

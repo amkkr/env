@@ -1,0 +1,15 @@
+[Desktop Entry]
+Name=Settings Manager
+Name[ja]=設定マネージャー
+Comment=Graphical Settings Manager for Xfce
+Comment[ja]=Xfce のグラフィカル設定マネージャー
+Keywords=control;panel;center;system;settings;personalize;hardware;
+Keywords[ja]=コントロール;パネル;センター;システム;設定;パーソナライズ;ハードウェア;
+Exec=xfce4-settings-manager
+Icon=org.xfce.settings.manager
+Terminal=false
+Type=Application
+Categories=X-XFCE;Settings;DesktopSettings;X-XFCE;
+OnlyShowIn=XFCE;
+X-XfceSettingsManagerHidden=true
+X-XFCE-Source=file:///usr/share/applications/xfce-settings-manager.desktop
