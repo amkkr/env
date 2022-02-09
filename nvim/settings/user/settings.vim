@@ -1,0 +1,12 @@
+set number
+set autoindent
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set clipboard=unnamed
+set hls
+set incsearch
+set cmdheight=2
+set laststatus=2
+set noshowmode
+set clipboard+=unnamedplus
