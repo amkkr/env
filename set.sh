@@ -1,21 +1,12 @@
 #! /usr/bin/bash
 
-# vscode install
-sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-sudo zypper addrepo https://packages.microsoft.com/yumrepos/vscode vscode
-sudo zypper refresh
-sudo zypper install code-insiders
-
 # git settings
-sudo zypper in git
 git config --global user.name
-git config --global user.email 
+git config --global user.email
 
 ssh-keygen -t ed25519 -C $(git config --global user.email)
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
-
-git clone git@github.com:AmanoKokoro/My_neovim_settings.git ~/.config/nvim
 
 #fzf get
 if [ ! -e ~/.cache/fzf ]; then
@@ -35,9 +26,7 @@ fi
 #vim-plug get
 
 if [ ! -e ~/.local/share/nvim/site/autoload/plug.vim ]; then
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 fi
-
 
 cp ./.bashrc ~/.bashrc
