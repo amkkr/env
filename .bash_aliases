@@ -1,6 +1,6 @@
 
 #update
-alias upd='sudo zypper ref && sudo zypper dup'
+alias upd='sudo dnf check-update && sudo dnf distro-sync && sudo dnf upgrade-minimal && sudo dnf autoremove'
 
 # some more ls aliases
 alias ll='ls -lh'
