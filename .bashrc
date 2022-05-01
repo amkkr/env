@@ -5,7 +5,6 @@
 #load ~/bin
 export PATH=$PATH:~/bin
 export XDG_CACHE_HOME=~/.cache
-export VISUAL=code
 
 # If not running interactively, don't do anything
 case $- in
