@@ -36,8 +36,10 @@ call  plug#begin('~/.vim/plug_modules')
     " completion vim
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-    "Color scheme
+    " Color scheme
     Plug 'morhetz/gruvbox'
     Plug 'shinchu/lightline-gruvbox.vim'
+    " Typescript syntax
+    Plug 'Quramy/tsuquyomi', { 'do': 'npm -g install typescript' }
 
 call plug#end()
