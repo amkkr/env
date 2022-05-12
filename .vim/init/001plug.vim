@@ -43,3 +43,5 @@ call  plug#begin('~/.vim/plug_modules')
     Plug 'Quramy/tsuquyomi', { 'do': 'npm -g install typescript' }
 
 call plug#end()
+
+LspInstallServer
