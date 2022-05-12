@@ -1,4 +1,5 @@
-set autoread " autoreload setting
+" autoreload setting
+set autoread 
 set number "line number
 syntax enable "syntax color enable
 set tabstop=4 "tab size
@@ -17,4 +18,10 @@ set clipboard+=unnamedplus
 set encoding=utf-8
 set fileencodings=utf-8
 set termguicolors
+set completeopt=menuone,noinsert
+
 let mapleader = ","
+inoremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"
+inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
+inoremap <expr><C-p> pumvisible() ? "<Up>" : "<C-p>"
+    
