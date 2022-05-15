@@ -1,13 +1,5 @@
 #! /usr/bin/bash
 
-# git settings
-git config --global user.name
-git config --global user.email
-
-ssh-keygen -t ed25519 -C $(git config --global user.email)
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
-
 #fzf get
 if [ ! -e ~/.cache/fzf ]; then
     git clone https://github.com/junegunn/fzf "$XDG_CACHE_HOME/fzf"
