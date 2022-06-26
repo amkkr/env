@@ -36,4 +36,6 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 # deno version manager get
 curl -fsSL https://deno.land/x/dvm/install.sh | sh
 
+# Rust get
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source ~/.bashrc

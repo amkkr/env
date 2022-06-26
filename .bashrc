@@ -100,3 +100,4 @@ export NVM_DIR="$HOME/.nvm"
 # dvm settings
 export PATH=$PATH:~/.dvm/bin
 
+. "$HOME/.cargo/env"
