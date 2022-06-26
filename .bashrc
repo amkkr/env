@@ -2,7 +2,7 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-#load ~/bin
+# load ~/bin
 export PATH=$PATH:~/bin
 export XDG_CACHE_HOME=~/.cache
 
@@ -92,7 +92,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# nvm settings
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# dvm settings
+export PATH=$PATH:~/.dvm/bin
 

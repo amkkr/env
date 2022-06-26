@@ -1,12 +1,24 @@
 #! /usr/bin/bash
 
-#fzf get
-if [ ! -e ~/.cache/fzf ]; then
-    git clone https://github.com/junegunn/fzf "$XDG_CACHE_HOME/fzf"
-    $XDG_CACHE_HOME/fzf/install --xdg --no-key-bindings --completion --no-update-rc
-fi
+# Delete default .bash file
+rm -rf ~/.bash*
 
-#git prompt get
+ln -s `pwd`/.bashrc ~/
+ln -s `pwd`/.bash_aliases ~/
+
+# set NeoVim Configs
+mkdir ~/.config
+ln -s `pwd`/nvim ~/.config/nvim
+
+source ~/.bashrc
+
+# fzf get
+# if [ ! -e ~/.cache/fzf ]; then
+#     git clone https://github.com/junegunn/fzf "$XDG_CACHE_HOME/fzf"
+#     $XDG_CACHE_HOME/fzf/install --xdg --no-key-bindings --completion --no-update-rc
+# fi
+
+# git prompt get
 if [ ! -f ~/.git-completion.bash ] || [ ! ~/.git-prompt.sh ]; then
     wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O ~/.git-completion.bash
     chmod a+x ~/.git-completion.bash
@@ -15,10 +27,13 @@ if [ ! -f ~/.git-completion.bash ] || [ ! ~/.git-prompt.sh ]; then
     chmod a+x ~/.git-prompt.sh
 fi
 
-#vim-plug get
+# nvm install
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
-if [ ! -e ~/.local/share/nvim/site/autoload/plug.vim ]; then
-    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-fi
+# vim-plug get
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-cp ./.bashrc ~/.bashrc
+# deno version manager get
+curl -fsSL https://deno.land/x/dvm/install.sh | sh
+
+source ~/.bashrc
