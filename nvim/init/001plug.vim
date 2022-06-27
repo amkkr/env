@@ -1,4 +1,4 @@
-call  plug#begin('~/.vim/plug_modules')
+call  plug#begin('~/.config/nvim/plug_modules')
     " html emmet
     Plug 'mattn/emmet-vim'	
     
