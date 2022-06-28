@@ -51,4 +51,7 @@ call  plug#begin('~/.config/nvim/plug_modules')
     " Typescript syntax
     Plug 'Quramy/tsuquyomi', { 'do': 'npm -g install typescript' }
 
+   " Rust Syntax highlite
+    Plug 'rust-lang/rust.vim'
 call plug#end()
+
