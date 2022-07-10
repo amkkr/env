@@ -101,3 +101,5 @@ export NVM_DIR="$HOME/.nvm"
 export PATH=$PATH:~/.dvm/bin
 
 . "$HOME/.cargo/env"
+
+[[ -s "/home/o-gane/.gvm/scripts/gvm" ]] && source "/home/o-gane/.gvm/scripts/gvm"
