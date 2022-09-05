@@ -5,6 +5,7 @@ rm -rf ~/.bash*
 
 ln -s `pwd`/.bashrc ~/
 ln -s `pwd`/.bash_aliases ~/
+ln -s `pwd`/.gitconfig ~/
 
 # set NeoVim Configs
 mkdir ~/.config
