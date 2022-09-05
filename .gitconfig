@@ -1,0 +1,17 @@
+[alias]
+    a = add
+    b = branch
+    c = commit
+    d = diff
+    f = fetch
+    l = reflog
+    s = status
+
+    co = checkout
+    cm = commit --message
+    pl = pull
+    pll = pull
+    pu = push
+    pus=push
+    ps = push
+

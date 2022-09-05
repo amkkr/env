@@ -5,7 +5,6 @@ call  plug#begin('~/.config/nvim/plug_modules')
     " configuration LSP
     Plug 'prabirshrestha/vim-lsp'
     Plug 'mattn/vim-lsp-settings'
-    Plug 'mattn/vim-lsp-settings'	
     
     " develop vim plugins for deno
     Plug 'vim-denops/denops.vim'
@@ -53,5 +52,8 @@ call  plug#begin('~/.config/nvim/plug_modules')
 
    " Rust Syntax highlite
     Plug 'rust-lang/rust.vim'
+    
+    " Go support
+    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaies' }r
 call plug#end()
 

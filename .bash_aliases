@@ -1,7 +1,7 @@
 
 #update
-alias upd='sudo dnf check-update && sudo dnf distro-sync && sudo dnf upgrade-minimal && sudo dnf autoremove'
-# alias upd='sudo apt -y update && sudo apt -y upgrade && sudo apt -y autoremove'
+# alias upd='sudo dnf check-update && sudo dnf distro-sync && sudo dnf upgrade-minimal && sudo dnf autoremove'
+alias upd='sudo apt -y update && sudo apt -y upgrade && sudo apt -y autoremove'
 # alias upd='sudo zypper ref && sudo zypper dup
 
 # some more ls aliases
