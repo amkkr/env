@@ -1,14 +1,11 @@
 call  plug#begin('~/.config/nvim/plug_modules')
-    " html emmet
-    Plug 'mattn/emmet-vim'	
-    
+    " completion vim
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    "
     " configuration LSP
     Plug 'prabirshrestha/vim-lsp'
     Plug 'mattn/vim-lsp-settings'
     Plug 'mattn/vim-lsp-settings'	
-    
-    " develop vim plugins for deno
-    Plug 'vim-denops/denops.vim'
 
     " Auto complete
     Plug 'Shougo/ddc.vim'
@@ -19,6 +16,12 @@ call  plug#begin('~/.config/nvim/plug_modules')
     Plug 'Shougo/ddc-matcher_head'
     Plug 'Shougo/ddc-sorter_rank'
     Plug 'Shougo/ddc-converter_remove_overlap'
+
+    " html emmet
+    Plug 'mattn/emmet-vim'	
+    
+    " develop vim plugins for deno
+    Plug 'vim-denops/denops.vim'
    
     " paste space
     Plug 'ConradIrwin/vim-bracketed-paste'
@@ -28,6 +31,7 @@ call  plug#begin('~/.config/nvim/plug_modules')
     
     " comment out
     Plug 'scrooloose/nerdcommenter'
+
     " FileTree
     Plug 'scrooloose/nerdtree'
     Plug 'tani/ddc-fuzzy'
@@ -42,12 +46,10 @@ call  plug#begin('~/.config/nvim/plug_modules')
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
     
-    " completion vim
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    
     " Color scheme
     Plug 'morhetz/gruvbox'
     Plug 'shinchu/lightline-gruvbox.vim'
+    
     " Typescript syntax
     Plug 'Quramy/tsuquyomi', { 'do': 'npm -g install typescript' }
 
