@@ -59,5 +59,5 @@ call  plug#begin('~/.config/nvim/plug_modules')
     Plug 'rust-lang/rust.vim'
 
     " Go support
-    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaies' }r
+    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaies' }
 call plug#end()
