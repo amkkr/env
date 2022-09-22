@@ -5,6 +5,7 @@
 # load ~/bin
 export PATH=$PATH:~/bin
 export XDG_CACHE_HOME=~/.cache
+export EDITOR=nvim
 
 # If not running interactively, don't do anything
 case $- in
@@ -97,9 +98,13 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+export nvmrc=~/.nvm/nvm.sh
+
 # dvm settings
 export PATH=$PATH:~/.dvm/bin
 
 . "$HOME/.cargo/env"
 
 [[ -s "/home/o-gane/.gvm/scripts/gvm" ]] && source "/home/o-gane/.gvm/scripts/gvm"
+
+eval "$(direnv hook bash)"
