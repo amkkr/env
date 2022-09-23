@@ -1,7 +1,10 @@
 call  plug#begin('~/.config/nvim/plug_modules')
+    " html emmet
+    Plug 'mattn/emmet-vim'
+
     " completion vim
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    "
+
     " configuration LSP
     Plug 'prabirshrestha/vim-lsp'
     Plug 'mattn/vim-lsp-settings'
@@ -19,12 +22,6 @@ call  plug#begin('~/.config/nvim/plug_modules')
     Plug 'Shougo/ddc-sorter_rank'
     Plug 'Shougo/ddc-converter_remove_overlap'
 
-    " html emmet
-    Plug 'mattn/emmet-vim'
-
-    " develop vim plugins for deno
-    Plug 'vim-denops/denops.vim'
-
     " paste space
     Plug 'ConradIrwin/vim-bracketed-paste'
 
@@ -37,9 +34,6 @@ call  plug#begin('~/.config/nvim/plug_modules')
     " FileTree
     Plug 'scrooloose/nerdtree'
     Plug 'tani/ddc-fuzzy'
-
-    " syntax highlite
-    Plug 'leafgarland/typescript-vim'
 
     " statusline color
     Plug 'itchyny/lightline.vim'
@@ -60,4 +54,7 @@ call  plug#begin('~/.config/nvim/plug_modules')
 
     " Go support
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaies' }
+
+    " syntax highlite
+    Plug 'leafgarland/typescript-vim'
 call plug#end()
