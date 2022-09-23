@@ -13,14 +13,14 @@ call  plug#begin('~/.config/nvim/plug_modules')
     Plug 'vim-denops/denops.vim'
 
     " Auto complete
-    Plug 'Shougo/ddc.vim'
-    Plug 'shun/ddc-vim-lsp'
-    Plug 'Shougo/pum.vim'
-    Plug 'Shougo/ddc-around'
-    Plug 'LumaKernel/ddc-file'
-    Plug 'Shougo/ddc-matcher_head'
-    Plug 'Shougo/ddc-sorter_rank'
-    Plug 'Shougo/ddc-converter_remove_overlap'
+    " Plug 'Shougo/ddc.vim'
+    " Plug 'shun/ddc-vim-lsp'
+    " Plug 'Shougo/pum.vim'
+    " Plug 'Shougo/ddc-around'
+    " Plug 'LumaKernel/ddc-file'
+    " Plug 'Shougo/ddc-matcher_head'
+    " Plug 'Shougo/ddc-sorter_rank'
+    " Plug 'Shougo/ddc-converter_remove_overlap'
 
     " paste space
     Plug 'ConradIrwin/vim-bracketed-paste'

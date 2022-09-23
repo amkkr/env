@@ -8,8 +8,9 @@ ln -s `pwd`/.bash_aliases ~/
 ln -s `pwd`/.gitconfig ~/
 
 # set NeoVim Configs
-mkdir ~/.config
+mkdir -p ~/.config/coc
 ln -s `pwd`/nvim ~/.config/nvim
+ln -s `pwd`/nvim/configCot ~/.config/nvim/coc
 
 source ~/.bashrc
 
