@@ -12,6 +12,8 @@ mkdir -p ~/.config/coc
 ln -s `pwd`/nvim ~/.config/nvim
 ln -s `pwd`/nvim/configCot ~/.config/nvim/coc
 
+ln -s `pwd`/desktop ~/.local/share/applications
+
 source ~/.bashrc
 
 # fzf get
@@ -33,7 +35,7 @@ fi
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
 # vim-plug get
-sh -c 'curl -fLo "${~/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 # deno version manager get
 curl -fsSL https://deno.land/x/dvm/install.sh | sh
