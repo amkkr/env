@@ -10,7 +10,7 @@ ln -s `pwd`/.gitconfig ~/
 # set NeoVim Configs
 mkdir -p ~/.config/coc
 ln -s `pwd`/nvim ~/.config/nvim
-ln -s `pwd`/nvim/configCot ~/.config/nvim/coc
+ln -s `pwd`/nvim/configCot ~/.config/coc
 
 ln -s `pwd`/desktop ~/.local/share/applications
 

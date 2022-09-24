@@ -2,5 +2,5 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "rust"
   ],
-  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/15.0.1/clangd_15.0.1/bin/clangd"
+  "clangd.path": "~/repo/env/nvim/configCoc/extensions/coc-clangd-data/install/15.0.1/clangd_15.0.1/bin/clangd"
 }
