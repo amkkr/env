@@ -49,7 +49,11 @@ call  plug#begin('~/.config/nvim/plug_modules')
     " Typescript syntax
     Plug 'Quramy/tsuquyomi', { 'do': 'npm -g install typescript' }
 
-   " Rust Syntax highlite
+    " eslinter
+    Plug 'dense-analysis/ale'
+    Plug 'maximbaz/lightline-ale'
+
+    " Rust Syntax highlite
     Plug 'rust-lang/rust.vim'
 
     " Go support

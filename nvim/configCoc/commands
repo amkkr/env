@@ -1,1 +1,5 @@
+eslint.showOutputChannel
+eslint.executeAutofix
+eslint.executeAutofix
+eslint.executeAutofix
 clangd.install

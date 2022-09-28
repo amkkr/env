@@ -3,6 +3,8 @@
     "rust"
   ],
   "clangd.path": "~/repo/env/nvim/configCoc/extensions/coc-clangd-data/install/15.0.1/clangd_15.0.1/bin/clangd",
-  "eslint.autoFixOnSave": true
+  "eslint.autoFixOnSave": true,
+  "eslint.format.enable": true,
+  "deno.enable": false
 }
 
