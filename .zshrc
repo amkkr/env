@@ -2,7 +2,11 @@
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-bindkey -e
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+bindkey  "^[[H"   beginning-of-line
+bindkey  "^[[F"   end-of-line
+bindkey  "^[[3~"  delete-char
 # End of lines configured by zsh-newuser-install
 
 # prompt show option
@@ -21,8 +25,8 @@ if [ ${UID} -eq 0 ]; then
 fi
 
 RPROMPT="${ISROOT}"
-setopt PROMPT_SUBST ; PS1='[%B%F{green}%n%f%b@%B%F{green}%m%f:%F{blue}%~%f%b]$(__git_ps1 " (%s)")
- $>'
+setopt PROMPT_SUBST ; PS1='[%B%F{green}%n%f%b@%B%F{green}%m%f:%F{blue}%~%f%b]
+ $(__git_ps1 " (%s)")$>'
 
 # aliases
 
