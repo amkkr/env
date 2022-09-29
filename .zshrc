@@ -50,6 +50,8 @@ alias cacheclear='sudo sysctl -w vm.drop_caches=3'
 alias cjp='convert `ls -v`'
 alias cpn='convert `ls -v`'
 
+eval "$(direnv hook zsh)"
+
 # nvm settings
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
