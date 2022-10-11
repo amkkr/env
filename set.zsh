@@ -1,4 +1,4 @@
-#! /usr/bin/bash
+#! /usr/bin/zsh
 
 # Delete default .bash file
 rm -rf ~/.zsh*
@@ -9,7 +9,12 @@ cat ./.gitconfig >> ~/.gitconfig
 # set NeoVim Configs
 ln -s `pwd`/nvim ~/.config/nvim
 
-# ln -s `pwd`/desktop ~/.local/share/applications
+case ${OSTYPE} in
+    linux*)
+        mkdir -p ~/.local/share/applications/
+        ln -s `pwd`/desktop/ ~/.local/share/applications
+        ;;
+esac
 
 source ~/.zshrc
 
@@ -27,7 +32,7 @@ if [ ! -f ~/.git-completion.bash ] || [ ! ~/.git-prompt.sh ]; then
 fi
 
 # nvm install
-wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | sh
 
 # deno version manager get
 curl -fsSL https://deno.land/x/dvm/install.sh | sh
