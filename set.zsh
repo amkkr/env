@@ -1,4 +1,4 @@
-#! /usr/bin/zsh
+#! /bin/zsh
 
 # Delete default .bash file
 rm -rf ~/.zsh*
@@ -19,7 +19,7 @@ esac
 source ~/.zshrc
 
 # git prompt get
-if [ ! -f ~/.git-completion.bash ] || [ ! ~/.git-prompt.sh ]; then
+if [ ! -e ~/.git-completion.bash ] || [ ! -e ~/.git-prompt.sh ]; then
     wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O ~/.git-completion.bash
     chmod a+x ~/.git-completion.bash
 

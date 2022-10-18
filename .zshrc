@@ -70,3 +70,5 @@ export PATH=$PATH:~/.dvm/bin
 . "$HOME/.cargo/env"
 
 [[ -s "/home/o-gane/.gvm/scripts/gvm" ]] && source "/home/o-gane/.gvm/scripts/gvm"
+export DVM_DIR="/Users/silver/.dvm"
+export PATH="$DVM_DIR/bin:$PATH"
