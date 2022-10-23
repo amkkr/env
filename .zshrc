@@ -1,3 +1,4 @@
+autoload colors && colors
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -9,16 +10,18 @@ bindkey  "^[[F"   end-of-line
 bindkey  "^[[3~"  delete-char
 # End of lines configured by zsh-newuser-install
 
+# ps1 and git prompt
+source ~/.zsh/git-prompt.sh
+fpath=(~/.zsh $fpath)
+zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
+autoload -Uz compinit && compinit -u
+
 # prompt show option
 GIT_PS1_SHOWDIRTYSTATE=true
 GIT_PS1_SHOWUNTRACKEDFILES=true
 GIT_PS1_SHOWSTASHSTATE=true
 GIT_PS1_SHOWUPSTREAM=auto
 GIT_PS1_SHOWCOLORHINTS=true
-
-# ps1 and git prompt
-fpath=(~/.zsh $fpath)
-source ~/.git-prompt.sh
 
 if [ ${UID} -eq 0 ]; then
   ISROOT="%K{red}%F{black}ROOT %k%f"
@@ -31,11 +34,19 @@ setopt PROMPT_SUBST ; PS1='[%B%F{green}%n%f%b@%B%F{green}%m%f:%F{blue}%~%f%b]
 # aliases
 
 # update
-alias upd='sudo dnf upgrade -y && sudo dnf autoremove'
+alias upd='brew update && brew outdated && brew upgrade && brew cleanup'
+
+# alias upd='sudo dnf upgrade -y && sudo dnf autoremove'
 # alias upd='sudo apt update -y && sudo apt upgrade -y && sudo apt autopurge -y && sudo snap refresh'
 # alias upd='sudo zypper ref && sudo zypper dup'
 
 # some more ls aliases
+case ${OSTYPE} in
+    linux*)
+        alias ls='ls --color=auto';;
+    darwin*)
+        alias ls='ls -G';;
+esac
 alias ll='ls -lh'
 alias la='ls -lha'
 alias l='ls -CF'
