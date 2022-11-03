@@ -69,15 +69,14 @@ eval "$(direnv hook zsh)"
 
 # dvm settings
 export PATH=$PATH:~/.dvm/bin
-
-. "$HOME/.cargo/env"
-
-[[ -s "/home/o-gane/.gvm/scripts/gvm" ]] && source "/home/o-gane/.gvm/scripts/gvm"
 export DVM_DIR="/Users/silver/.dvm"
 export PATH="$DVM_DIR/bin:$PATH"
 
-# aqua path
+. "$HOME/.cargo/env"
+
+# aqua path module version manager
 export PATH=$PATH:"/Users/silver/.local/share/aquaproj-aqua/bin"
+# npm and node version manager
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
