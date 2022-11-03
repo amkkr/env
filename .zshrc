@@ -67,14 +67,6 @@ alias cpn='convert `ls -v`'
 
 eval "$(direnv hook zsh)"
 
-# nvm settings
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-export nvmrc=~/.nvm/nvm.sh
-eval "$(direnv hook bash)"
-
 # dvm settings
 export PATH=$PATH:~/.dvm/bin
 
@@ -83,3 +75,9 @@ export PATH=$PATH:~/.dvm/bin
 [[ -s "/home/o-gane/.gvm/scripts/gvm" ]] && source "/home/o-gane/.gvm/scripts/gvm"
 export DVM_DIR="/Users/silver/.dvm"
 export PATH="$DVM_DIR/bin:$PATH"
+
+# aqua path
+export PATH=$PATH:"/Users/silver/.local/share/aquaproj-aqua/bin"
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
