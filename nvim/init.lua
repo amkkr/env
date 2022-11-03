@@ -1,2 +1,2 @@
 require('000set')
-vim.cmd('runtime! ftdetect/*.vim')
+vim.cmd('runtime ftdetect/*.vim')
