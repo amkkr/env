@@ -80,3 +80,5 @@ export PATH=$PATH:"/Users/silver/.local/share/aquaproj-aqua/bin"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export CPPFLAGS=-I/opt/homebrew/opt/openjdk/include
+export PATH="/Users/silver/Library/platform-tools:$PATH"
