@@ -7,7 +7,7 @@ ln -s `pwd`/.zshrc ~/
 cat ./.gitconfig >> ~/.gitconfig
 
 # set NeoVim Configs
-ln -s `pwd`/nvim ~/.config/nvim
+ln -s `pwd`/vim ~/.vim
 
 case ${OSTYPE} in
     linux*)
