@@ -65,6 +65,8 @@ alias cacheclear='sudo sysctl -w vm.drop_caches=3'
 alias cjp='convert `ls -v`'
 alias cpn='convert `ls -v`'
 
+alias kill3000='kill -9 $(lsof -t -i:3000)'
+
 eval "$(direnv hook zsh)"
 
 # dvm settings
@@ -77,8 +79,17 @@ export PATH="$DVM_DIR/bin:$PATH"
 # aqua path module version manager
 export PATH=$PATH:"/Users/silver/.local/share/aquaproj-aqua/bin"
 # npm and node version manager
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export CPPFLAGS=-I/opt/homebrew/opt/openjdk/include
 export PATH="/Users/silver/Library/platform-tools:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+export BAT_THEME=gruvbox-dark
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

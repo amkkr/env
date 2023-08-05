@@ -22,3 +22,5 @@ set fileencodings=utf-8
 
 set termguicolors
 set completeopt=menuone,noinsert
+
+set background=dark

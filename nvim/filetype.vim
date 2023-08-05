@@ -3,6 +3,7 @@ if exists("did_load_filetypes")
 endif
 augroup filetypedetect
   au BufRead,BufNewFile *.py,*.pyx setfiletype py
-  au BufRead,BufNewFile *.js,*.ts,*.jsx,*.tsx,*.json setfiletype node
+  " au BufRead,BufNewFile *.js,*.ts,*.jsx,*.tsx,*.json setfiletype node
+  au BufRead,BufNewFile *.jsx,*.tsx setfiletype typescriptreact 
   au BufRead,BufNewFile *.c,*.h,*.cpp,*.hpp,*.go setfiletype tab4
 augroup END
