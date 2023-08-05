@@ -1,13 +1,14 @@
 #! /bin/zsh
 
 # Delete default .bash file
+rm -rf ~/.bash*
 rm -rf ~/.zsh*
 
 ln -s `pwd`/.zshrc ~/
 cat ./.gitconfig >> ~/.gitconfig
 
 # set NeoVim Configs
-ln -s `pwd`/vim ~/.vim
+ln -s `pwd`/nvim ~/.config/nvim
 
 case ${OSTYPE} in
     linux*)
@@ -19,17 +20,16 @@ esac
 source ~/.zshrc
 
 # git prompt get
-if [ ! -e ~/.git-completion.bash ] || [ ! -e ~/.git-prompt.sh ]; then
-    wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O ~/.git-completion.bash
+    mkdir ~/.zsh/
+    wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O ~/.zsh/git-completion.bash
     chmod a+x ~/.git-completion.bash
 
-    wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -O ~/.git-prompt.sh
+    wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -O ~/.zsh/git-prompt.sh
     chmod a+x ~/.git-prompt.sh
 
     mkdir ~/.zsh
     wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh -O ~/.zsh/_git
     chmod a+x ~/.zsh/_git
-fi
 
 # nvm install
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | sh
