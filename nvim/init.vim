@@ -1,2 +1,2 @@
-runtime ./config.vim
-runtime ./plugins.vim
+runtime! ./config.vim
+runtime! ./plugins.vim

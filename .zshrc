@@ -43,7 +43,8 @@ alias upd='brew update && brew outdated && brew upgrade && brew cleanup'
 # some more ls aliases
 case ${OSTYPE} in
     linux*)
-        alias ls='ls --color=auto';;
+        alias ls='ls --color=auto'
+        export PATH=$PATH:~/.local/bin;;
     darwin*)
         alias ls='ls -G';;
 esac
