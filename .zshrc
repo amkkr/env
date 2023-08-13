@@ -43,7 +43,8 @@ alias upd='brew update && brew outdated && brew upgrade && brew cleanup'
 # some more ls aliases
 case ${OSTYPE} in
     linux*)
-        alias ls='ls --color=auto';;
+        alias ls='ls --color=auto'
+        export PATH=$PATH:~/.local/bin;;
     darwin*)
         alias ls='ls -G';;
 esac
@@ -69,15 +70,14 @@ alias kill3000='kill -9 $(lsof -t -i:3000)'
 
 eval "$(direnv hook zsh)"
 
-# dvm settings
-export PATH=$PATH:~/.dvm/bin
-export DVM_DIR="/Users/silver/.dvm"
-export PATH="$DVM_DIR/bin:$PATH"
+export DENO_INSTALL="/home/silver/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
 
 . "$HOME/.cargo/env"
 
 # aqua path module version manager
 export PATH=$PATH:"/Users/silver/.local/share/aquaproj-aqua/bin"
+
 # npm and node version manager
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export CPPFLAGS=-I/opt/homebrew/opt/openjdk/include
