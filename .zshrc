@@ -81,7 +81,7 @@ export PATH=$PATH:"/Users/silver/.local/share/aquaproj-aqua/bin"
 # npm and node version manager
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export CPPFLAGS=-I/opt/homebrew/opt/openjdk/include
-export PATH="/Users/silver/Library/platform-tools:$PATH"
+export PATH="$HOME/Library/platform-tools:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

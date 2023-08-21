@@ -1,3 +1,5 @@
+[user]
+    name = amkkr
 [alias]
     a = add
     b = branch
@@ -9,8 +11,17 @@
 
     co = checkout
     cm = commit --message
+	force-pull = !git fetch && git reset --hard origin/develop
+    md = merge develop
     pl = pull
     pll = pull
-    pu = push
-    pus=push
     ps = push
+    pu = push
+    pus = push
+    sc = switch -c
+    sw = switch
+
+[push]
+	default = current
+[fetch]
+	prune = true
