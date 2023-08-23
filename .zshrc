@@ -28,8 +28,7 @@ if [ ${UID} -eq 0 ]; then
 fi
 
 RPROMPT="${ISROOT}"
-setopt PROMPT_SUBST ; PS1='[%B%F{green}%n%f%b@%B%F{green}%m%f:%F{blue}%~%f%b]
- $(__git_ps1 " (%s)")$>'
+setopt PROMPT_SUBST ; PS1='[%B%F{green}%n%f%b@%B%F{green}%m%f:%F{blue}%~%f%b] git:$(__git_ps1 "(%s)")'
 
 # aliases
 
