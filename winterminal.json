@@ -253,29 +253,23 @@
         {
             "bellStyle": "none",
             "colorScheme": "UserProfile",
+            "elevate": true,
             "font": 
             {
-                "face": "Ubuntu Mono",
-                "size": 13.0,
+                "face": "HackGen Console",
+                "size": 16.0,
                 "weight": "bold"
             }
         },
         "list": 
         [
             {
-                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-                "hidden": false,
-                "name": "Ubuntu",
-                "source": "Windows.Terminal.Wsl"
-            },
-            {
                 "altGrAliasing": true,
                 "antialiasingMode": "grayscale",
                 "closeOnExit": "automatic",
                 "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
                 "cursorShape": "bar",
-                "elevate": true,
-                "guid": "{68e9fd74-3838-4eda-bc1d-35d8c770389c}",
+                "guid": "{427cb681-8cca-4f10-aa1a-c5f676a040ef}",
                 "hidden": false,
                 "historySize": 9001,
                 "icon": "ms-appx:///ProfileIcons/{61c54bbd-c2c6-5271-96e7-009a87ff44bf}.png",
@@ -284,6 +278,30 @@
                 "snapOnInput": true,
                 "startingDirectory": "%USERPROFILE%",
                 "useAcrylic": false
+            },
+            {
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "closeOnExit": "automatic",
+                "commandline": "%SystemRoot%\\System32\\cmd.exe",
+                "cursorShape": "bar",
+                "guid": "{589cd831-df3d-4a50-8c9d-a2894477310c}",
+                "hidden": false,
+                "historySize": 9001,
+                "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
+                "name": "Command Prompt ",
+                "padding": "8, 8, 8, 8",
+                "snapOnInput": true,
+                "startingDirectory": "%USERPROFILE%",
+                "useAcrylic": false
+            },
+            {
+                "commandline": "C:\\Windows\\system32\\wsl.exe -d Ubuntu",
+                "guid": "{c8eafef1-eed0-404e-bd44-5d5a4bef6afd}",
+                "hidden": false,
+                "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
+                "name": "Ubuntu ",
+                "startingDirectory": "~"
             }
         ]
     },
