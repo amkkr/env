@@ -5,6 +5,7 @@ rm -rf ~/.bash*
 rm -rf ~/.zsh*
 
 ln -s `pwd`/.zshrc ~/
+rm -r ~/.gitconfig
 echo "[include]" >> ~/.gitconfig
 echo "    path = `pwd`/.gitconfig"  >> ~/.gitconfig
 

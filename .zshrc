@@ -33,20 +33,21 @@ setopt PROMPT_SUBST ; PS1='[%B%F{green}%n%f%b@%B%F{green}%m%f:%F{blue}%~%f%b] $(
 # aliases
 
 # update
-alias upd='brew update && brew outdated && brew upgrade && brew cleanup'
 
 # alias upd='sudo dnf upgrade -y && sudo dnf autoremove'
-# alias upd='sudo apt update -y && sudo apt upgrade -y && sudo apt autopurge -y && sudo snap refresh'
 # alias upd='sudo zypper ref && sudo zypper dup'
 
 # some more ls aliases
 case ${OSTYPE} in
     linux*)
         alias ls='ls --color=auto'
+        alias upd='sudo apt update -y && sudo apt upgrade -y && sudo apt autopurge -y && sudo snap refresh'
         export PATH=$PATH:~/.local/bin;;
     darwin*)
-        alias ls='ls -G';;
+        alias ls='ls -G'
+        alias upd='brew update && brew outdated && brew upgrade && brew cleanup';;
 esac
+
 alias ll='ls -lh'
 alias la='ls -lha'
 alias l='ls -CF'
