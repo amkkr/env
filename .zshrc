@@ -70,9 +70,6 @@ alias kill3000='kill -9 $(lsof -t -i:3000)'
 
 eval "$(direnv hook zsh)"
 
-export DENO_INSTALL="/home/silver/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
-
 . "$HOME/.cargo/env"
 
 # aqua path module version manager
@@ -97,3 +94,6 @@ export NVM_DIR="$HOME/.nvm"
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+
+export DVM_DIR="/Users/amkkr/.dvm"
+export PATH="$DVM_DIR/bin:$PATH"
