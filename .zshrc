@@ -95,5 +95,5 @@ export NVM_DIR="$HOME/.nvm"
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 
-export DVM_DIR="/Users/amkkr/.dvm"
+export DVM_DIR="$HOME/.dvm"
 export PATH="$DVM_DIR/bin:$PATH"
