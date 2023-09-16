@@ -31,8 +31,9 @@ Jetpack 'Shougo/ddc-filter-sorter_rank'
 Jetpack 'Shougo/ddc-filter-converter_remove_overlap'
 Jetpack 'uga-rosa/ddc-nvim-lsp-setup'
 Jetpack 'Shougo/ddc-ui-native'
+Jetpack 'Shougo/pum.vim'
+Jetpack 'Shougo/ddc-ui-pum'
 
 call jetpack#end()
 
 colorscheme gruvbox
-

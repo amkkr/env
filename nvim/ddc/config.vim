@@ -1,4 +1,5 @@
 call ddc#custom#patch_global('ui', ['native'])
+call ddc#custom#patch_global('ui', ['pum'])
 call ddc#custom#patch_global('sources', ['around', 'nvim-lsp'])
 
 call ddc#custom#patch_global('sourceOptions', #{
@@ -27,10 +28,10 @@ call ddc#custom#patch_global('sourceParams', #{
 
 call ddc#enable()
 
-inoremap <Tab>   <Cmd>call native#map#insert_relative(+1)<CR>
-inoremap <S-Tab> <Cmd>call native#map#insert_relative(-1)<CR>
-inoremap <C-n>   <Cmd>call native#map#insert_relative(+1)<CR>
-inoremap <C-p>   <Cmd>call native#map#insert_relative(-1)<CR>
-inoremap <C-y>   <Cmd>call native#map#confirm()<CR>
-inoremap <C-e>   <Cmd>call native#map#cancel()<CR>
+inoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
+inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
+inoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
+inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
 
