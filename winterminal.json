@@ -197,15 +197,15 @@
         },
         {
             "command": "unbound",
-            "keys": "ctrl+v"
-        },
-        {
-            "command": "unbound",
             "keys": "shift+insert"
         },
         {
             "command": "unbound",
             "keys": "ctrl+shift+a"
+        },
+        {
+            "command": "unbound",
+            "keys": "ctrl+shift+v"
         },
         {
             "command": 
@@ -223,7 +223,8 @@
             "keys": "ctrl+shift+1"
         },
         {
-            "command": "paste"
+            "command": "paste",
+            "keys": "ctrl+v"
         },
         {
             "command": "find"
