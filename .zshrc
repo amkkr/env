@@ -68,6 +68,9 @@ alias cpn='convert `ls -v`'
 
 alias kill3000='kill -9 $(lsof -t -i:3000)'
 
+# docker
+alias dockere='docker exec -u 0 -it'
+
 eval "$(direnv hook zsh)"
 
 . "$HOME/.cargo/env"
