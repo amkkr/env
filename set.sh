@@ -7,7 +7,7 @@ rm -rf ~/.zsh*
 ln -s `pwd`/.zshrc ~/
 rm -r ~/.gitconfig
 echo "[include]" >> ~/.gitconfig
-echo "    path = `pwd`/.gitconfig"  >> ~/.gitconfig
+echo "path = `pwd`/.gitconfig"  >> ~/.gitconfig
 
 # set NeoVim Configs
 ln -s `pwd`/nvim ~/.config/nvim
@@ -34,11 +34,11 @@ source ~/.zshrc
     chmod a+x ~/.zsh/_git
 
 # nvm install
-wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | sh
+# wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | sh
 
 
 # Rust get
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source "$HOME/.cargo/env"
-
-source ~/.zshrc
+#curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+#source "$HOME/.cargo/env"
+#
+#source ~/.zshrc
