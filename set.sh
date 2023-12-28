@@ -36,6 +36,9 @@ source ~/.zshrc
 # nvm install
 # wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | sh
 
+# dvm install
+# curl -fsSL https://dvm.deno.dev | sh
+
 
 # Rust get
 #curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
