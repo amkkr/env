@@ -38,12 +38,16 @@ case ${OSTYPE} in
         alias upd='sudo apt update -y && sudo apt upgrade -y && sudo apt autopurge -y && sudo snap refresh'
         # alias upd='sudo dnf upgrade -y && sudo dnf autoremove'
         # alias upd='sudo zypper ref && sudo zypper dup'
-        export PATH=$PATH:~/.local/bin;;
+        export PATH=$PATH:~/.local/bin
         setopt PROMPT_SUBST ; PS1='[%B%F{green}%n%f%b@%B%F{green}%m%f:%F{blue}%~%f%b] $(__git_ps1 "(%s)")'$'\n'
+
+        ;;
     darwin*)
         alias ls='ls -G'
-        alias upd='brew update && brew outdated && brew upgrade && brew cleanup';;
+        alias upd='brew update && brew outdated && brew upgrade && brew cleanup'
         setopt PROMPT_SUBST ; PS1='[%B%F{green}%n%f%b@%B%F{green}%m%f:%F{blue}%~%f%b] $(__git_ps1 "(%s)")'
+
+        ;;
 esac
 
 # some more ls aliases
