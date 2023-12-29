@@ -25,3 +25,5 @@
 	default = current
 [fetch]
 	prune = true
+[core]
+	editor = nvim
