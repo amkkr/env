@@ -70,6 +70,8 @@ alias cjp='convert `ls -v`'
 alias cpn='convert `ls -v`'
 
 alias kill3000='kill -9 $(lsof -t -i:3000)'
+alias uefiin='sudo systemctl reboot --firmware-setup'
+alias biosin='sudo systemctl reboot --firmware-setup'
 
 # docker
 alias dockere='docker exec -u 0 -it'
