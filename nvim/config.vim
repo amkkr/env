@@ -24,3 +24,4 @@ set termguicolors
 set completeopt=menuone,noinsert
 
 set background=dark
+set rtp+=/opt/homebrew/opt/fzf
