@@ -4,12 +4,15 @@
 rm -rf ~/.bash*
 rm -rf ~/.zsh*
 
+unset ~/.zshrc
 ln -s `pwd`/.zshrc ~/
-rm -r ~/.gitconfig
+rm -rf ~/.gitconfig
 echo "[include]" >> ~/.gitconfig
 echo "path = `pwd`/.gitconfig"  >> ~/.gitconfig
 
 # set NeoVim Configs
+rm -rf ~/.config/nvim
+unset ~/.config/nvim
 ln -s `pwd`/nvim ~/.config/nvim
 
 case ${OSTYPE} in
@@ -38,7 +41,6 @@ source ~/.zshrc
 
 # dvm install
 # curl -fsSL https://dvm.deno.dev | sh
-
 
 # Rust get
 #curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
