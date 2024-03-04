@@ -1,14 +1,13 @@
 filetype plugin indent on
 set expandtab
-set tabstop=4
+set tabstop=2
 
 set autoread 
 set number
 
 syntax enable
-set expandtab
 set smartindent
-set shiftwidth=4
+set shiftwidth=2
 
 set hlsearch
 set incsearch
