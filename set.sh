@@ -1,10 +1,10 @@
 #! /bin/zsh
 
 # Delete default .bash file
-rm -rf ~/.bash*
-rm -rf ~/.zsh*
+(rm -rf ~/.bash*)
+(rm -rf ~/.zsh*)
 
-unset ~/.zshrc
+# unset ~/.zshrc
 ln -s `pwd`/.zshrc ~/
 rm -rf ~/.gitconfig
 echo "[include]" >> ~/.gitconfig
@@ -12,7 +12,8 @@ echo "path = `pwd`/.gitconfig"  >> ~/.gitconfig
 
 # set NeoVim Configs
 rm -rf ~/.config/nvim
-unset ~/.config/nvim
+# unset ~/.config/nvim
+mkdir -p ~/.config
 ln -s `pwd`/nvim ~/.config/nvim
 
 case ${OSTYPE} in

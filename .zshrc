@@ -76,7 +76,6 @@ alias biosin='sudo systemctl reboot --firmware-setup'
 # docker
 alias dockere='docker exec -u 0 -it'
 
-eval "$(direnv hook zsh)"
 
 . "$HOME/.cargo/env"
 
@@ -109,3 +108,8 @@ fi
 
 export DVM_DIR="$HOME/.dvm"
 export PATH="$DVM_DIR/bin:$PATH"
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+# eval $(op signin)
+
+eval "$(direnv hook zsh)"
