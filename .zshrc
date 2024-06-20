@@ -13,7 +13,7 @@ bindkey  "^[[3~"  delete-char
 # ps1 and git prompt
 source ~/.zsh/git-prompt.sh
 fpath=(~/.zsh $fpath)
-zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
+zstyle ":completion:*:*:git:*" script ~/.zsh/git-completion.bash
 autoload -Uz compinit && compinit -u
 
 # prompt show option
@@ -28,53 +28,53 @@ if [ ${UID} -eq 0 ]; then
 fi
 
 RPROMPT="${ISROOT}"
-setopt PROMPT_SUBST ; PS1='[%B%F{green}%n%f%b@%B%F{green}%m%f:%F{blue}%~%f%b] $(__git_ps1 "(%s)")'$'\n'
+setopt PROMPT_SUBST ; PS1="[%B%F{green}%n%f%b@%B%F{green}%m%f:%F{blue}%~%f%b] $(__git_ps1 "(%s)")"$"\n"
 
 # aliases
 
 case ${OSTYPE} in
     linux*)
-        alias ls='ls --color=auto'
-        # alias upd='sudo apt update -y && sudo apt upgrade -y && sudo apt autopurge -y && sudo snap refresh'
-        # alias upd='sudo dnf upgrade -y && sudo dnf autoremove'
-        alias upd='sudo zypper ref && sudo zypper up -y'
+        alias ls="ls --color=auto"
+        # alias upd="sudo apt update -y && sudo apt upgrade -y && sudo apt autopurge -y && sudo snap refresh"
+        # alias upd="sudo dnf upgrade -y && sudo dnf autoremove"
+        alias upd="sudo zypper ref && sudo zypper up -y"
         export PATH=$PATH:~/.local/bin
-        setopt PROMPT_SUBST ; PS1='[%B%F{green}%n%f%b@%B%F{green}%m%f:%F{blue}%~%f%b] $(__git_ps1 "(%s)")'$'\n'
+        setopt PROMPT_SUBST ; PS1="[%B%F{green}%n%f%b@%B%F{green}%m%f:%F{blue}%~%f%b] $(__git_ps1 "(%s)")"$"\n"
 
         ;;
     darwin*)
-        alias ls='ls -G'
-        alias upd='brew update && brew outdated && brew upgrade && brew cleanup'
-        setopt PROMPT_SUBST ; PS1='[%B%F{green}%n%f%b@%B%F{green}%m%f:%F{blue}%~%f%b] $(__git_ps1 "(%s)")'
+        alias ls="ls -G"
+        alias upd="brew update && brew outdated && brew upgrade && brew cleanup"
+        setopt PROMPT_SUBST ; PS1="[%B%F{green}%n%f%b@%B%F{green}%m%f:%F{blue}%~%f%b] $(__git_ps1 "(%s)")"
 
         ;;
 esac
 
 # some more ls aliases
-alias ll='ls -lh'
-alias la='ls -lha'
-alias l='ls -CF'
-alias _='sudo'
-alias _i='sudo -i'
-alias please='sudo'
-alias fucking='sudo'
+alias ll="ls -lh"
+alias la="ls -lha"
+alias l="ls -CF"
+alias _="sudo"
+alias _i="sudo -i"
+alias please="sudo"
+alias fucking="sudo"
 
 # cd aliases
-alias cdh='cd ~/'
-alias cddc='cd ~/Documents'
-alias cddw='cd ~/Downloads'
-alias cdpic='cd ~/Pictures'
+alias cdh="cd ~/"
+alias cddc="cd ~/Documents"
+alias cddw="cd ~/Downloads"
+alias cdpic="cd ~/Pictures"
 
-alias cacheclear='sudo sysctl -w vm.drop_caches=3'
-alias cjp='convert `ls -v`'
-alias cpn='convert `ls -v`'
+alias cacheclear="sudo sysctl -w vm.drop_caches=3"
+alias cjp="convert `ls -v`"
+alias cpn="convert `ls -v`"
 
-alias kill3000='kill -9 $(lsof -t -i:3000)'
-alias uefiin='sudo systemctl reboot --firmware-setup'
-alias biosin='sudo systemctl reboot --firmware-setup'
+alias kill3000="kill -9 $(lsof -t -i:3000)"
+alias uefiin="sudo systemctl reboot --firmware-setup"
+alias biosin="sudo systemctl reboot --firmware-setup"
 
 # docker
-alias dockere='docker exec -u 0 -it'
+alias dockere="docker exec -u 0 -it"
 
 
 . "$HOME/.cargo/env"
@@ -113,3 +113,9 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # eval $(op signin)
 
 eval "$(direnv hook zsh)"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
