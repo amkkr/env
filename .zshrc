@@ -46,6 +46,10 @@ case ${OSTYPE} in
         alias ls='ls -G'
         alias upd='brew update && brew outdated && brew upgrade && brew cleanup'
         setopt PROMPT_SUBST ; PS1='[%B%F{green}%n%f%b@%B%F{green}%m%f:%F{blue}%~%f%b] $(__git_ps1 "(%s)")'
+        # npm and node version manager
+        export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+        export CPPFLAGS=-I/opt/homebrew/opt/openjdk/include
+        eval "$(/opt/homebrew/bin/brew shellenv)"
 
         ;;
 esac
@@ -82,9 +86,6 @@ alias dockere='docker exec -u 0 -it'
 # aqua path module version manager
 export PATH=$PATH:"/Users/silver/.local/share/aquaproj-aqua/bin"
 
-# npm and node version manager
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-export CPPFLAGS=-I/opt/homebrew/opt/openjdk/include
 export PATH="$HOME/Library/platform-tools:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -109,7 +110,6 @@ fi
 export DVM_DIR="$HOME/.dvm"
 export PATH="$DVM_DIR/bin:$PATH"
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
 # eval $(op signin)
 
 eval "$(direnv hook zsh)"
