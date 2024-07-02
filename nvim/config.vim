@@ -22,5 +22,4 @@ set fileencodings=utf-8
 set termguicolors
 set completeopt=menuone,noinsert
 
-set background=light
 set rtp+=/opt/homebrew/opt/fzf

@@ -34,6 +34,7 @@ Jetpack 'hrsh7th/cmp-vsnip'
 Jetpack 'hrsh7th/vim-vsnip'
 call jetpack#end()
 
+let g:gruvbox_contrast_dark = 'soft'
 colorscheme gruvbox
 
 lua <<EOF
