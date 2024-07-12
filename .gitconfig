@@ -27,5 +27,6 @@
 	prune = true
 [core]
 	editor = nvim
+	ignorecase = false
 [init]
 	defaultBranch = master
