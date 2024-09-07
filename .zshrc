@@ -46,6 +46,7 @@ case ${OSTYPE} in
         alias ls='ls -G'
         alias upd='brew update && brew outdated && brew upgrade && brew cleanup'
         setopt PROMPT_SUBST ; PS1='[%B%F{green}%n%f%b@%B%F{green}%m%f:%F{blue}%~%f%b] $(__git_ps1 "(%s)")'
+        PROMPT="${PROMPT}"$'\n'
         # npm and node version manager
         export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
         export CPPFLAGS=-I/opt/homebrew/opt/openjdk/include
@@ -120,4 +121,3 @@ if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/
 # The next line enables shell command completion for gcloud.
 if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
 
-PROMPT="${PROMPT}"$'\n'
