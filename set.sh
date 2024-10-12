@@ -45,14 +45,10 @@ else
   ln -s `pwd`/warp-terminal ~/.config/
 fi
 
-# nvm install
-# wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | sh
+curl -fLo ~/.local/share/nvim/site/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim --create-dirs https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim
+
 
 # dvm install
-# curl -fsSL https://dvm.deno.dev | sh
+curl -fsSL https://dvm.deno.dev | sh
 
-# Rust get
-#curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-#source "$HOME/.cargo/env"
-#
-#source ~/.zshrc
+source ~/.zshrc
