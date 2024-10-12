@@ -37,6 +37,14 @@ source ~/.zshrc
     wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh -O ~/.zsh/_git
     chmod a+x ~/.zsh/_git
 
+# set warp-terminal config files
+if [[ -d $HOME/.config ]] then
+  ln -s `pwd`/warp-terminal ~/.config/
+else
+  mkdir -p $HOME/.config
+  ln -s `pwd`/warp-terminal ~/.config/
+fi
+
 # nvm install
 # wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | sh
 
