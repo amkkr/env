@@ -35,9 +35,9 @@ setopt PROMPT_SUBST ; PS1='[%B%F{green}%n%f%b@%B%F{green}%m%f:%F{blue}%~%f%b] $(
 case ${OSTYPE} in
     linux*)
         alias ls='ls --color=auto'
-        # alias upd='sudo apt update -y && sudo apt upgrade -y && sudo apt autopurge -y && sudo snap refresh'
+        alias upd='sudo apt update -y && sudo apt upgrade -y && sudo apt autopurge -y && sudo snap refresh && sudo flatpak update'
         # alias upd='sudo dnf upgrade -y && sudo dnf autoremove'
-        alias upd='sudo zypper ref && sudo zypper up -y'
+        # alias upd='sudo zypper ref && sudo zypper up -y'
         export PATH=$PATH:~/.local/bin
         setopt PROMPT_SUBST ; PS1='[%B%F{green}%n%f%b@%B%F{green}%m%f:%F{blue}%~%f%b] $(__git_ps1 "(%s)")'$'\n'
 
