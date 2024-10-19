@@ -18,8 +18,24 @@ ln -s `pwd`/nvim ~/.config/nvim
 
 case ${OSTYPE} in
     linux*)
-        mkdir -p ~/.local/share/applications/
-        ln -s `pwd`/desktop/ ~/.local/share/applications
+        # set warp-terminal config files
+        if [[ -d $HOME/.config ]] then
+          ln -s `pwd`/warp-terminal ~/.config/
+        else
+          mkdir -p $HOME/.config
+          ln -s `pwd`/warp-terminal ~/.config/
+        fi
+        ;;
+        
+    darwin*)
+        # set warp-terminal config files
+        if [[ -d $HOME/.warp ]] then
+          rm -r $HOME/.warp/*
+          ln -s `pwd`/darwin-mac.yaml ~/.warp/keybindings.yaml
+        else
+          mkdir -p $HOME/.warp
+          ln -s `pwd`/darwin-mac.yaml ~/.warp/keybindings.yaml
+        fi
         ;;
 esac
 
@@ -37,13 +53,6 @@ source ~/.zshrc
     wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh -O ~/.zsh/_git
     chmod a+x ~/.zsh/_git
 
-# set warp-terminal config files
-if [[ -d $HOME/.config ]] then
-  ln -s `pwd`/warp-terminal ~/.config/
-else
-  mkdir -p $HOME/.config
-  ln -s `pwd`/warp-terminal ~/.config/
-fi
 
 curl -fLo ~/.local/share/nvim/site/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim --create-dirs https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim
 
