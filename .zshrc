@@ -81,12 +81,6 @@ alias biosin='sudo systemctl reboot --firmware-setup'
 # docker
 alias dockere='docker exec -u 0 -it'
 
-
-. "$HOME/.cargo/env"
-
-# aqua path module version manager
-export PATH=$PATH:"/Users/silver/.local/share/aquaproj-aqua/bin"
-
 export PATH="$HOME/Library/platform-tools:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
