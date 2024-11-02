@@ -100,7 +100,7 @@ lua <<EOF
     capabilities = capabilities
   }
 
-  require('lspconfig')['tsserver'].setup {
+  require('lspconfig')['ts_ls'].setup {
     capabilities = capabilities,
     root_dir = require('lspconfig').util.root_pattern("package.json"),
     single_file_support = false,
