@@ -11,7 +11,7 @@
 
     co = checkout
     cm = commit --message
-	force-pull = !git fetch && git reset --hard origin/master
+    force-pull = !git fetch && git reset --hard origin/main
     md = merge develop
     pl = pull
     pll = pull
