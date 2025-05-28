@@ -39,6 +39,7 @@ case ${OSTYPE} in
         # alias upd='sudo dnf upgrade -y && sudo dnf autoremove'
         # alias upd='sudo zypper ref && sudo zypper up -y'
         export PATH=$PATH:~/.local/bin
+        export PATH=$PATH:/snap/bin
         setopt PROMPT_SUBST ; PS1='[%B%F{green}%n%f%b@%B%F{green}%m%f:%F{blue}%~%f%b] $(__git_ps1 "(%s)")'$'\n'
 
         ;;
