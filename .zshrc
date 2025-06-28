@@ -108,9 +108,6 @@ alias cpn='convert `ls -v`'
 # Development Environment Setup
 # -----------------------------------------------------------------------------
 
-# Rust environment
-. "$HOME/.cargo/env"
-
 # Go environment
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
