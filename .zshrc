@@ -164,3 +164,5 @@ eval "$(direnv hook zsh)"
 
 # 1Password CLI (commented out)
 # eval $(op signin)
+
+alias claude="/home/amkkr/.claude/local/claude"
