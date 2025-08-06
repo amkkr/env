@@ -51,7 +51,7 @@ case ${OSTYPE} in
     linux*)
         # Linux aliases and settings
         alias ls='ls --color=auto'
-        alias upd='sudo apt update -y && sudo apt upgrade -y && sudo apt autopurge -y && sudo snap refresh && sudo flatpak update'
+        alias upd='sudo apt update -y && sudo apt upgrade -y && sudo apt autopurge -y'
         # Alternative package managers (commented out)
         # alias upd='sudo dnf upgrade -y && sudo dnf autoremove'
         # alias upd='sudo zypper ref && sudo zypper up -y'
@@ -165,5 +165,5 @@ eval "$(direnv hook zsh)"
 # 1Password CLI (commented out)
 # eval $(op signin)
 
-
+# Local Install Claude Code
 alias claude="~/.claude/local/claude"
