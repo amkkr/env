@@ -163,12 +163,12 @@ main() {
     setup_shell_config
     setup_neovim
     setup_warp_terminal
-    
+    setup_git_completion
+
     if [[ -f ~/.zshrc ]]; then
         source ~/.zshrc
     fi
     
-    setup_git_completion
     setup_vim_jetpack
     install_dvm
     install_nvm
