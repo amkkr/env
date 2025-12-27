@@ -11,7 +11,7 @@
 
     co = checkout
     cm = commit --message
-	force-pull = !git fetch && git reset --hard origin/develop
+    force-pull = !git fetch && git reset --hard origin/main
     md = merge develop
     pl = pull
     pll = pull
@@ -25,3 +25,10 @@
 	default = current
 [fetch]
 	prune = true
+[core]
+	editor = nvim
+	ignorecase = false
+[init]
+	defaultBranch = master
+[pull]
+	rebase = false

@@ -1,0 +1,5 @@
+---
+"editor_view:vim_exit_insert_mode": none
+"pane_group:navigate_next": "ctrl-]"
+"pane_group:navigate_prev": ctrl--
+"workspace:toggle_ai_assistant": ctrl-2

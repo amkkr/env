@@ -1,0 +1,8 @@
+---
+"workspace:close_active_tab": cmd-w
+"pane_group:navigate_prev": ctrl--
+"pane_group:navigate_next": "ctrl-]"
+"editor_view:vim_exit_insert_mode": none
+"workspace:toggle_ai_assistant": ctrl-2
+"workspace:new_tab": ctrl-t
+"pane_group:close_current_session": ctrl-w
