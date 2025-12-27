@@ -51,10 +51,10 @@ case ${OSTYPE} in
     linux*)
         # Linux aliases and settings
         alias ls='ls --color=auto'
-        # alias upd='sudo apt update -y && sudo apt upgrade -y && sudo apt autopurge -y'
+        alias upd='sudo apt update -y && sudo apt upgrade -y && sudo apt autopurge -y && rustup update'
         # Alternative package managers (commented out)
         # alias upd='sudo dnf upgrade -y && sudo dnf autoremove'
-        alias upd='sudo zypper ref && sudo zypper up -y'
+        # alias upd='sudo zypper ref && sudo zypper up -y'
         
         # Linux-specific PATH
         export PATH=$PATH:~/.local/bin
@@ -121,11 +121,15 @@ fi
 # Deno environment
 export DVM_DIR="$HOME/.dvm"
 export PATH="$DVM_DIR/bin:$PATH"
+export PATH="/home/amkkr/.deno/bin:$PATH"
 
 # Bun environment
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 [ -s "/Users/amkkr/.bun/_bun" ] && source "/Users/amkkr/.bun/_bun"
+
+# Rust environment
+. "$HOME/.cargo/env"  
 
 # Go environment
 export GOPATH=$HOME/go
