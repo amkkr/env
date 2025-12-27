@@ -121,6 +121,7 @@ fi
 # Deno environment
 export DVM_DIR="$HOME/.dvm"
 export PATH="$DVM_DIR/bin:$PATH"
+export PATH="/home/amkkr/.deno/bin:$PATH"
 
 # Bun environment
 export BUN_INSTALL="$HOME/.bun"
