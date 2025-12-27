@@ -164,4 +164,4 @@ eval "$(direnv hook zsh)"
 # eval $(op signin)
 
 # Local Install Claude Code
-alias claude="~/.claude/local/claude"
+alias claude="~/.local/bin/claude"
