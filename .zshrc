@@ -36,7 +36,7 @@ GIT_PS1_SHOWCOLORHINTS=true
 
 # Root user indicator
 if [ ${UID} -eq 0 ]; then
-  ISROOT="%K{red}%F{black}ROOT %k%f"
+    ISROOT="%K{red}%F{black}ROOT %k%f"
 fi
 RPROMPT="${ISROOT}"
 
@@ -51,10 +51,10 @@ case ${OSTYPE} in
     linux*)
         # Linux aliases and settings
         alias ls='ls --color=auto'
-        alias upd='sudo apt update -y && sudo apt upgrade -y && sudo apt autopurge -y'
+        alias upd='sudo zypper ref && sudo zypper up -y'
         # Alternative package managers (commented out)
         # alias upd='sudo dnf upgrade -y && sudo dnf autoremove'
-        # alias upd='sudo zypper ref && sudo zypper up -y'
+        # alias upd='sudo apt update -y && sudo apt upgrade -y && sudo apt autopurge -y && rustup update'
         
         # Linux-specific PATH
         export PATH=$PATH:~/.local/bin
@@ -108,11 +108,6 @@ alias cpn='convert `ls -v`'
 # Development Environment Setup
 # -----------------------------------------------------------------------------
 
-# Go environment
-export GOPATH=$HOME/go
-export GOBIN=$GOPATH/bin
-export PATH=$PATH:$GOBIN
-
 # Node.js environment (NVM)
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -126,21 +121,24 @@ fi
 # Deno environment
 export DVM_DIR="$HOME/.dvm"
 export PATH="$DVM_DIR/bin:$PATH"
+export PATH="/home/amkkr/.deno/bin:$PATH"
 
 # Bun environment
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 [ -s "/Users/amkkr/.bun/_bun" ] && source "/Users/amkkr/.bun/_bun"
 
+# Rust environment
+. "$HOME/.cargo/env"  
+
+# Go environment
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+
 # -----------------------------------------------------------------------------
 # Tool-Specific Configuration
 # -----------------------------------------------------------------------------
-
-# Aqua package manager
-export PATH=$PATH:"/Users/silver/.local/share/aquaproj-aqua/bin"
-
-# Android development
-export PATH="$HOME/Library/platform-tools:$PATH"
 
 # FZF fuzzy finder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
