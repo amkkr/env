@@ -23,9 +23,9 @@ bindkey "^[[3~"   delete-char
 # Git Integration and Prompt
 # -----------------------------------------------------------------------------
 source ~/.zsh/git-prompt.sh
-fpath=(~/.zsh $fpath)
+fpath=(~/.zsh ~/.docker/completions $fpath)
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
-autoload -Uz compinit && compinit -u
+autoload -Uz compinit && compinit -C
 
 # Git prompt options
 GIT_PS1_SHOWDIRTYSTATE=true
@@ -163,11 +163,6 @@ eval "$(direnv hook zsh)"
 # 1Password CLI (commented out)
 # eval $(op signin)
 
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/yakuratenshin/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
 
 . "$HOME/.local/bin/env"
 # Local Install Claude Code
