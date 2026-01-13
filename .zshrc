@@ -163,7 +163,5 @@ eval "$(direnv hook zsh)"
 # 1Password CLI (commented out)
 # eval $(op signin)
 
-
-. "$HOME/.local/bin/env"
 # Local Install Claude Code
 alias claude="~/.claude/local/claude"
