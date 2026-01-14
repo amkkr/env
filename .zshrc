@@ -23,9 +23,9 @@ bindkey "^[[3~"   delete-char
 # Git Integration and Prompt
 # -----------------------------------------------------------------------------
 source ~/.zsh/git-prompt.sh
-fpath=(~/.zsh $fpath)
+fpath=(~/.zsh ~/.docker/completions $fpath)
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
-autoload -Uz compinit && compinit -u
+autoload -Uz compinit && compinit -C
 
 # Git prompt options
 GIT_PS1_SHOWDIRTYSTATE=true
@@ -51,10 +51,10 @@ case ${OSTYPE} in
     linux*)
         # Linux aliases and settings
         alias ls='ls --color=auto'
-        alias upd='sudo apt update -y && sudo apt upgrade -y && sudo apt autopurge -y && rustup update'
+        alias upd='sudo zypper ref && sudo zypper up -y'
         # Alternative package managers (commented out)
         # alias upd='sudo dnf upgrade -y && sudo dnf autoremove'
-        # alias upd='sudo zypper ref && sudo zypper up -y'
+        # alias upd='sudo apt update -y && sudo apt upgrade -y && sudo apt autopurge -y && rustup update'
         
         # Linux-specific PATH
         export PATH=$PATH:~/.local/bin
