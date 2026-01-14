@@ -90,6 +90,8 @@ setup_warp_terminal() {
                 safe_remove ~/.warp/*
             fi
             create_symlink "$SCRIPT_DIR/darwin-mac.yaml" ~/.warp/keybindings.yaml "Warp keybindings (macOS)"
+            safe_mkdir ~/.warp/themes
+            create_symlink "$SCRIPT_DIR/warp-terminal/themes/gruvbox-dark-soft.yaml" ~/.warp/themes/gruvbox-dark-soft.yaml "Warp theme (macOS)"
             ;;
         *)
             log "Unsupported OS type: $OSTYPE, skipping Warp terminal setup"
