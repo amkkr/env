@@ -161,7 +161,7 @@ eval "$(direnv hook zsh)"
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 
 # 1Password CLI (commented out)
-eval $(op signin)
+# eval $(op signin)
 
 # Local Install Claude Code
 alias claude="~/.claude/local/claude"
