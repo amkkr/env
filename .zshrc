@@ -64,9 +64,9 @@ case ${OSTYPE} in
         # macOS aliases and settings
         alias ls='ls -G'
         alias upd='brew update && brew outdated && brew upgrade && brew cleanup'
-        
+
         # macOS-specific PATH and environment
-        export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+        export PATH="$HOME/.local/bin:/opt/homebrew/opt/openjdk/bin:$PATH"
         export CPPFLAGS=-I/opt/homebrew/opt/openjdk/include
         eval "$(/opt/homebrew/bin/brew shellenv)"
         ;;
@@ -159,9 +159,3 @@ eval "$(direnv hook zsh)"
 
 # Tab completion for packages
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
-
-# 1Password CLI (commented out)
-# eval $(op signin)
-
-# Local Install Claude Code
-alias claude="~/.local/bin/claude"
