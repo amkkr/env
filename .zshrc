@@ -51,10 +51,10 @@ case ${OSTYPE} in
     linux*)
         # Linux aliases and settings
         alias ls='ls --color=auto'
-        alias upd='sudo zypper ref && sudo zypper up -y'
+        # alias upd='sudo zypper ref && sudo zypper up -y'
         # Alternative package managers (commented out)
         # alias upd='sudo dnf upgrade -y && sudo dnf autoremove'
-        # alias upd='sudo apt update -y && sudo apt upgrade -y && sudo apt autopurge -y && rustup update'
+        alias upd='sudo apt update -y && sudo apt upgrade -y && sudo apt autopurge -y && rustup update'
         
         # Linux-specific PATH
         export PATH=$PATH:~/.local/bin
