@@ -165,3 +165,6 @@ eval "$(direnv hook zsh)"
 
 # Local Install Claude Code
 alias claude="~/.claude/local/claude"
+
+# Added by Antigravity
+export PATH="/Users/yakuratenshin/.antigravity/antigravity/bin:$PATH"
