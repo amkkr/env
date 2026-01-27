@@ -23,9 +23,9 @@ bindkey "^[[3~"   delete-char
 # Git Integration and Prompt
 # -----------------------------------------------------------------------------
 source ~/.zsh/git-prompt.sh
-fpath=(~/.zsh $fpath)
+fpath=(~/.zsh ~/.docker/completions $fpath)
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
-autoload -Uz compinit && compinit -u
+autoload -Uz compinit && compinit -C
 
 # Git prompt options
 GIT_PS1_SHOWDIRTYSTATE=true
@@ -51,10 +51,10 @@ case ${OSTYPE} in
     linux*)
         # Linux aliases and settings
         alias ls='ls --color=auto'
-        alias upd='sudo apt update -y && sudo apt upgrade -y && sudo apt autopurge -y && rustup update'
+        alias upd='sudo zypper ref && sudo zypper up -y'
         # Alternative package managers (commented out)
         # alias upd='sudo dnf upgrade -y && sudo dnf autoremove'
-        # alias upd='sudo zypper ref && sudo zypper up -y'
+        # alias upd='sudo apt update -y && sudo apt upgrade -y && sudo apt autopurge -y && rustup update'
         
         # Linux-specific PATH
         export PATH=$PATH:~/.local/bin
@@ -64,9 +64,9 @@ case ${OSTYPE} in
         # macOS aliases and settings
         alias ls='ls -G'
         alias upd='brew update && brew outdated && brew upgrade && brew cleanup'
-        
+
         # macOS-specific PATH and environment
-        export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+        export PATH="$HOME/.local/bin:/opt/homebrew/opt/openjdk/bin:$PATH"
         export CPPFLAGS=-I/opt/homebrew/opt/openjdk/include
         eval "$(/opt/homebrew/bin/brew shellenv)"
         ;;
@@ -162,6 +162,3 @@ eval "$(direnv hook zsh)"
 
 # 1Password CLI (commented out)
 # eval $(op signin)
-
-# Local Install Claude Code
-alias claude="~/.local/bin/claude"
