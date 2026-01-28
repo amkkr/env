@@ -20,6 +20,7 @@
     pus = push
     sc = switch -c
     sw = switch
+    bc = !git branch | grep -v "main\\|master\\|staging\\|develop" | xargs git branch -D
 
 [push]
 	default = current
