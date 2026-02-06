@@ -76,7 +76,7 @@ setup_neovim() {
 
 setup_warp_terminal() {
     log "Setting up Warp terminal configuration"
-    
+
     case "${OSTYPE}" in
         linux*)
             safe_mkdir ~/.config
@@ -97,6 +97,13 @@ setup_warp_terminal() {
             log "Unsupported OS type: $OSTYPE, skipping Warp terminal setup"
             ;;
     esac
+}
+
+setup_claude_config() {
+    log "Setting up Claude Code configuration"
+
+    safe_mkdir ~/.claude
+    create_symlink "$SCRIPT_DIR/.claude.md" ~/.claude/CLAUDE.md "Claude Code configuration"
 }
 
 setup_git_completion() {
@@ -150,7 +157,9 @@ install_dvm() {
 
 install_nvm() {
     log "Installing Node Version Manager (nvm)"
-    
+    # Note: nvm is configured for lazy-loading in .zshrc
+    # to improve shell startup time
+
     if curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash; then
         log "nvm installed successfully"
     else
@@ -160,11 +169,12 @@ install_nvm() {
 
 main() {
     log "Starting environment setup"
-    
+
     check_dependencies
     setup_shell_config
     setup_neovim
     setup_warp_terminal
+    setup_claude_config
     setup_git_completion
 
     if [[ -f ~/.zshrc ]]; then
