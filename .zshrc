@@ -108,15 +108,66 @@ alias cpn='convert `ls -v`'
 # Development Environment Setup
 # -----------------------------------------------------------------------------
 
-# Node.js environment (NVM)
+# -----------------------------------------------------------------------------
+# Node.js environment (NVM with lazy loading)
+# -----------------------------------------------------------------------------
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# Auto-switch Node version based on .nvmrc
-if [[ -a ".nvmrc" ]]; then
-    nvm use
-fi
+# Lazy load nvm - define stub function
+nvm() {
+    unset -f nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    nvm "$@"
+}
+
+# Auto-load node, npm, npx without loading nvm
+node() {
+    unset -f node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    node "$@"
+}
+
+npm() {
+    unset -f node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    npm "$@"
+}
+
+npx() {
+    unset -f node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    npx "$@"
+}
+
+# Auto-switch Node version when changing directory
+autoload -U add-zsh-hook
+
+_nvm_auto_switch() {
+    if [[ -f .nvmrc ]]; then
+        # Ensure nvm is loaded
+        if ! command -v nvm &> /dev/null; then
+            unset -f nvm 2>/dev/null
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+        fi
+
+        local nvmrc_node_version="$(nvm version "$(cat .nvmrc)")"
+        local current_node_version="$(nvm version)"
+
+        if [[ "$nvmrc_node_version" != "$current_node_version" ]]; then
+            nvm use
+        fi
+    fi
+}
+
+add-zsh-hook chpwd _nvm_auto_switch
+
+# Check .nvmrc in current directory on shell startup
+_nvm_auto_switch
 
 # Deno environment
 export DVM_DIR="$HOME/.dvm"
