@@ -68,5 +68,7 @@ The configuration sets up various development environments:
 
 - The setup script removes existing bash and zsh configuration files
 - All configurations are managed through symlinks to this repository
-- The `.zshrc` automatically detects `.nvmrc` files and switches Node versions
+- The `.zshrc` uses lazy-loading for nvm to improve shell startup time (1.9s → 0.02s)
+- Automatically detects `.nvmrc` files when changing directories and switches Node versions
+- nvm is loaded on-demand when first used (nvm, node, npm, or npx commands)
 - Git completion and prompt functionality requires internet connection during setup
