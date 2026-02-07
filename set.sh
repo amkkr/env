@@ -74,29 +74,11 @@ setup_neovim() {
     create_symlink "$SCRIPT_DIR/nvim" ~/.config/nvim "NeoVim configuration"
 }
 
-setup_warp_terminal() {
-    log "Setting up Warp terminal configuration"
+setup_ghostty() {
+    log "Setting up Ghostty terminal configuration"
 
-    case "${OSTYPE}" in
-        linux*)
-            safe_mkdir ~/.config
-            if [[ ! -L ~/.config/warp-terminal ]]; then
-                create_symlink "$SCRIPT_DIR/warp-terminal" ~/.config/warp-terminal "Warp terminal (Linux)"
-            fi
-            ;;
-        darwin*)
-            safe_mkdir ~/.warp
-            if [[ -d ~/.warp && ! -L ~/.warp ]]; then
-                safe_remove ~/.warp/*
-            fi
-            create_symlink "$SCRIPT_DIR/darwin-mac.yaml" ~/.warp/keybindings.yaml "Warp keybindings (macOS)"
-            safe_mkdir ~/.warp/themes
-            create_symlink "$SCRIPT_DIR/warp-terminal/themes/gruvbox-dark-soft.yaml" ~/.warp/themes/gruvbox-dark-soft.yaml "Warp theme (macOS)"
-            ;;
-        *)
-            log "Unsupported OS type: $OSTYPE, skipping Warp terminal setup"
-            ;;
-    esac
+    safe_mkdir ~/.config
+    create_symlink "$SCRIPT_DIR/ghostty" ~/.config/ghostty "Ghostty configuration"
 }
 
 setup_claude_config() {
@@ -173,7 +155,7 @@ main() {
     check_dependencies
     setup_shell_config
     setup_neovim
-    setup_warp_terminal
+    setup_ghostty
     setup_claude_config
     setup_git_completion
 

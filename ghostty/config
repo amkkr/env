@@ -1,0 +1,26 @@
+# Font
+font-family = Moralerspace Neon HWNF
+font-family = HackGen Console NF
+font-family = Bitstream Vera Sans Mono
+font-size = 16
+font-thicken = true
+
+# Opacity
+background-opacity = 1
+
+# Theme
+theme = gruvbox-dark-soft
+
+# Keybindings
+# Navigate splits (Warp: pane_group:navigate_next/prev)
+keybind = ctrl+]=goto_split:next
+keybind = ctrl+-=goto_split:previous
+
+# Tab operations (Warp: workspace:new_tab, close_active_tab)
+keybind = ctrl+t=new_tab
+
+# Close current pane (Warp: pane_group:close_current_session)
+keybind = ctrl+w=close_surface
+
+# Equalize all split sizes
+keybind = ctrl+shift+r=equalize_splits
