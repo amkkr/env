@@ -1,7 +1,7 @@
 # Font
-font-family = Moralerspace Neon HWNF
-font-family = HackGen Console NF
-font-family = Bitstream Vera Sans Mono
+font-family = "HackGen Console NF"
+font-family = "Moralerspace Neon HWNF"
+font-family = "Bitstream Vera Sans Mono"
 font-size = 16
 font-thicken = true
 
@@ -10,6 +10,9 @@ background-opacity = 1
 
 # Theme
 theme = gruvbox-dark-soft
+
+# Window
+window-save-state = never
 
 # Keybindings
 # Navigate splits (Warp: pane_group:navigate_next/prev)
