@@ -3,20 +3,59 @@ call jetpack#begin()
 " bootstrap
 Jetpack 'tani/vim-jetpack', {'opt': 1}
 
-" On-demand loading
+" ============================================
+" File Explorer & Navigation
+" ============================================
+" File explorer
+Jetpack 'nvim-neo-tree/neo-tree.nvim'
+Jetpack 'nvim-lua/plenary.nvim'
+Jetpack 'nvim-tree/nvim-web-devicons'
+Jetpack 'MunifTanjim/nui.nvim'
+
+" Fuzzy finder (keeping fzf for compatibility)
 Jetpack 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Jetpack 'junegunn/fzf.vim'
+Jetpack 'nvim-telescope/telescope.nvim'
+Jetpack 'nvim-telescope/telescope-fzf-native.nvim', {'do': 'make'}
 
-" color  theme
+" Buffer/Tab line
+Jetpack 'romgrk/barbar.nvim'
+
+" ============================================
+" Git Integration
+" ============================================
+Jetpack 'lewis6991/gitsigns.nvim'
+Jetpack 'tpope/vim-fugitive'
+Jetpack 'kdheepak/lazygit.nvim'
+
+" ============================================
+" UI & Appearance
+" ============================================
+" Color theme
 Jetpack 'morhetz/gruvbox'
 
-" editorconfig plugin
+" Status line
+Jetpack 'nvim-lualine/lualine.nvim'
+
+" ============================================
+" Code Formatting & Editing
+" ============================================
+" Auto formatter
+Jetpack 'stevearc/conform.nvim'
+
+" Editorconfig plugin
 Jetpack 'editorconfig/editorconfig-vim'
 
+" ============================================
+" Language Support
+" ============================================
 " jsx tsx syntax highlight
 Jetpack 'leafgarland/typescript-vim'
 Jetpack 'peitalin/vim-jsx-typescript'
 
+" ============================================
+" LSP & Completion
+" ============================================
 " nvim lsp
 Jetpack 'williamboman/mason.nvim'
 Jetpack 'williamboman/mason-lspconfig.nvim'
@@ -94,20 +133,30 @@ lua <<EOF
     })
   })
 
-  -- Set up lspconfig.
+  -- Set up LSP (vim.lsp.config API for nvim 0.11+)
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
-  require('lspconfig')['denols'].setup {
-    capabilities = capabilities
-  }
 
-  require('lspconfig')['ts_ls'].setup {
+  vim.lsp.config('denols', {
     capabilities = capabilities,
-    root_dir = require('lspconfig').util.root_pattern("package.json"),
-    single_file_support = false,
-  }
+    root_markers = { 'deno.json', 'deno.jsonc' },
+  })
 
-  require('lspconfig')['gopls'].setup{}
+  vim.lsp.config('ts_ls', {
+    capabilities = capabilities,
+    root_markers = { 'package.json' },
+    workspace = {
+      single_file_support = false,
+    },
+  })
 
-  require('lspconfig')['intelephense'].setup{}
+  vim.lsp.config('gopls', {
+    capabilities = capabilities,
+  })
+
+  vim.lsp.config('intelephense', {
+    capabilities = capabilities,
+  })
+
+  vim.lsp.enable({ 'denols', 'ts_ls', 'gopls', 'intelephense' })
 
 EOF

@@ -33,7 +33,9 @@ This script:
 - **nvim/**: Complete NeoVim configuration directory
   - `init.lua`: Main NeoVim initialization file
   - `config.vim`: Core Vim configuration
-  - `plugins.vim`: Plugin definitions
+  - `plugins.vim`: Plugin definitions and legacy Lua setup (LSP, completion)
+  - `lua/plugin-config.lua`: Plugin configurations (Neo-tree, Telescope, Gitsigns, Conform, Lualine, Barbar)
+  - `lua/keybindings.lua`: Key mappings (VSCode-like bindings adapted for terminal)
   - `ftdetect/`: File type detection rules
 - **warp-terminal/**: Warp terminal configuration files
 - **darwin-mac.yaml**: macOS-specific keybindings for Warp terminal
@@ -63,6 +65,34 @@ The configuration sets up various development environments:
 - Java: OpenJDK path on macOS
 - Google Cloud SDK integration
 - Cargo (Rust) environment
+
+## System Dependencies (NeoVim)
+
+NeoVim plugins require the following system packages:
+
+### macOS (Homebrew)
+```bash
+brew install ripgrep fd lazygit
+brew tap daipeihust/tap && brew install im-select
+```
+
+### Linux (apt)
+```bash
+sudo apt install ripgrep fd-find
+# lazygit: https://github.com/jesseduffield/lazygit#installation
+```
+
+### Linux (dnf)
+```bash
+sudo dnf install ripgrep fd-find lazygit
+```
+
+| Package | Used by | Purpose |
+|---------|---------|---------|
+| `ripgrep` | Telescope | Live grep / content search |
+| `fd` | Telescope | File finder |
+| `lazygit` | lazygit.nvim | Terminal Git UI |
+| `im-select` | keybindings.lua | IME auto-switch on InsertLeave (macOS only) |
 
 ## Important Notes
 
