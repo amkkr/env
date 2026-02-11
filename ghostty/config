@@ -11,6 +11,9 @@ background-opacity = 1
 # Theme
 theme = gruvbox-dark-soft
 
+# Window
+window-save-state = never
+
 # Keybindings
 # Navigate splits (Warp: pane_group:navigate_next/prev)
 keybind = ctrl+]=goto_split:next
