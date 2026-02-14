@@ -48,10 +48,32 @@ setup_shell_config() {
     log "Git configuration setup complete"
 }
 
+setup_nvim_config() {
+    log "Setting up NeoVim configuration"
+
+    local nvim_config_dir="$HOME/AppData/Local/nvim"
+    local nvim_source_dir="$SCRIPT_DIR/nvim"
+
+    if [[ ! -d "$nvim_source_dir" ]]; then
+        error "NeoVim configuration directory $nvim_source_dir does not exist"
+    fi
+
+    # Create parent directory if it doesn't exist
+    mkdir -p "$HOME/AppData/Local"
+
+    safe_remove "$nvim_config_dir"
+
+    log "Creating symlink for NeoVim configuration"
+    ln -s "$nvim_source_dir" "$nvim_config_dir"
+
+    log "NeoVim configuration setup complete"
+}
+
 main() {
     log "Starting environment setup for Git Bash"
 
     setup_shell_config
+    setup_nvim_config
 
     log "Environment setup completed successfully!"
     log "Please restart Git Bash to apply changes."
