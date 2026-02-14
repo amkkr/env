@@ -1,0 +1,25 @@
+name: Gruvbox Dark Soft
+accent: "#fe8019" # Gruvbox orange
+cursor: "#fe8019" # Gruvbox orange
+background: "#32302f" # dark0_soft
+foreground: "#ebdbb2" # light1 (fg1)
+details: darker
+terminal_colors:
+  normal:
+    black: "#32302f" # dark0_soft (bg0)
+    red: "#cc241d" # neutral_red
+    green: "#98971a" # neutral_green
+    yellow: "#d79921" # neutral_yellow
+    blue: "#458588" # neutral_blue
+    magenta: "#b16286" # neutral_purple
+    cyan: "#689d6a" # neutral_aqua
+    white: "#a89984" # light4 (fg4)
+  bright:
+    black: "#928374" # gray
+    red: "#fb4934" # bright_red
+    green: "#b8bb26" # bright_green
+    yellow: "#fabd2f" # bright_yellow
+    blue: "#83a598" # bright_blue
+    magenta: "#d3869b" # bright_purple
+    cyan: "#8ec07c" # bright_aqua
+    white: "#ebdbb2" # light1 (fg1)
