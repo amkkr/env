@@ -169,18 +169,18 @@ main() {
 
     check_dependencies
     setup_shell_config
-    #setup_neovim
+    setup_neovim
     setup_warp_terminal
-    #setup_claude_config
+    setup_claude_config
     setup_git_completion
 
     if [[ -f ~/.zshrc ]]; then
         source ~/.zshrc
     fi
     
-    #setup_vim_jetpack
-    #install_dvm
-    #install_nvm
+    setup_vim_jetpack
+    install_dvm
+    install_nvm
     
     if [[ -f ~/.zshrc ]]; then
         source ~/.zshrc
