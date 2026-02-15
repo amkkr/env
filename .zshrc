@@ -121,27 +121,12 @@ nvm() {
     nvm "$@"
 }
 
-# Auto-load node, npm, npx without loading nvm
-node() {
-    unset -f node npm npx
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-    node "$@"
-}
-
-npm() {
-    unset -f node npm npx
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-    npm "$@"
-}
-
-npx() {
-    unset -f node npm npx
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-    npx "$@"
-}
+# nvm defaultバージョンのbinをPATHに追加（whichで実パスを返せるようにする）
+if [ -s "$NVM_DIR/alias/default" ]; then
+    NVM_DEFAULT=$(cat "$NVM_DIR/alias/default")
+    NVM_NODE_DIR=$(ls -d "$NVM_DIR/versions/node/v${NVM_DEFAULT}"* 2>/dev/null | sort -V | tail -1)
+    [ -d "$NVM_NODE_DIR" ] && export PATH="$NVM_NODE_DIR/bin:$PATH"
+fi
 
 # Auto-switch Node version when changing directory
 autoload -U add-zsh-hook

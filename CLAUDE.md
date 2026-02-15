@@ -4,88 +4,46 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This is a personal environment configuration repository (dotfiles) that manages shell, terminal, and editor configurations across macOS and Linux systems. The repository contains:
+個人の環境設定リポジトリ(dotfiles)。macOSとLinuxのシェル、ターミナル、エディタ設定を管理する。
 
-- **Shell Configuration**: `.zshrc` with custom prompt, aliases, and cross-platform settings
-- **NeoVim Configuration**: Complete NeoVim setup with plugins and custom configurations
-- **Terminal Configuration**: Warp terminal settings and keybindings
-- **Environment Setup**: Installation and symlink management script
+## Setup
 
-## Setup and Installation
-
-The primary setup command is:
 ```bash
-./set.sh
+./set.zsh
 ```
 
-This script:
-- Removes existing shell configuration files and creates symlinks
-- Sets up NeoVim configuration by symlinking the `nvim/` directory
-- Configures Warp terminal settings based on the operating system
-- Downloads git completion and prompt scripts
-- Installs vim-jetpack plugin manager
-- Installs Deno Version Manager (dvm)
+このスクリプトは以下を行う:
+- 既存のシェル設定ファイル(`.bash*`, `.zshrc`等)を削除し、シンボリンクを作成
+- `.gitconfig`を`[include]`方式で取り込み(ユーザー設定を上書きしない)
+- `nvim/` → `~/.config/nvim` のシンボリンク
+- `.claude.md` → `~/.claude/CLAUDE.md` のシンボリンク
+- Warp/Ghosttyターミナル設定(macOSのみ)
+- git completion/promptスクリプトのダウンロード
+- vim-jetpack、nvm、dvmのインストール
 
-## File Structure
+## Architecture
 
-- **set.sh**: Main setup script that creates symlinks and installs dependencies
-- **.zshrc**: Zsh shell configuration with cross-platform support
-- **nvim/**: Complete NeoVim configuration directory
-  - `init.lua`: Main NeoVim initialization file
-  - `config.vim`: Core Vim configuration
-  - `plugins.vim`: Plugin definitions and legacy Lua setup (LSP, completion)
-  - `lua/plugin-config.lua`: Plugin configurations (Neo-tree, Telescope, Gitsigns, Conform, Lualine, Barbar)
-  - `lua/keybindings.lua`: Key mappings (VSCode-like bindings adapted for terminal)
-  - `ftdetect/`: File type detection rules
-- **warp-terminal/**: Warp terminal configuration files
-- **darwin-mac.yaml**: macOS-specific keybindings for Warp terminal
+### シンボリンク管理方式
 
-## Cross-Platform Support
+すべての設定はこのリポジトリからシンボリンクで管理される。`set.zsh`内の`create_symlink`関数が既存ファイルの削除→シンボリンク作成を行う。`.gitconfig`のみ例外で、`[include]`ディレクティブ経由で読み込む。
 
-The configuration supports both macOS (darwin) and Linux systems:
-- **macOS**: Uses Homebrew for updates, specific PATH configurations
-- **Linux**: Supports multiple package managers (apt, dnf, zypper), Flatpak, and Snap
+### NeoVim設定の構造
 
-## Key Features
+読み込み順序: `init.lua` → `config.vim`(基本設定) → `plugins.vim`(プラグイン定義 + LSP/補完設定) → `plugin-config.lua` → `keybindings.lua`
 
-- Git integration with custom prompt showing repository status
-- Comprehensive alias collection for common operations
-- Node.js version management with NVM
-- Deno version management with DVM
-- Go development environment setup
-- Docker convenience aliases
-- Cross-platform update commands (`upd` alias)
+- **プラグインマネージャ**: vim-jetpack。プラグイン追加・更新は `:JetpackSync`
+- **LSP**: Mason経由。`plugins.vim`内で`vim.lsp.config`/`vim.lsp.enable` APIを使用(nvim 0.11+)
+  - `denols`: `deno.json`/`deno.jsonc`がルートにある場合に有効化
+  - `ts_ls`: `package.json`がルートにある場合に有効化（single_file_support=false）
+  - `gopls`, `intelephense`: 常に有効
+- **フォーマッター**: conform.nvim。保存時自動フォーマット。JS/TSはBiome→Prettierの順で試行
+- **キーバインド**: VSCode風。Leader=Space。`<D-*>`(Cmd)と`<C-*>`(Ctrl)の両方を設定
 
-## Environment Variables and Paths
+### .zshrc クロスプラットフォーム対応
 
-The configuration sets up various development environments:
-- Go: `GOPATH` and `GOBIN` configuration
-- Node.js: NVM integration with automatic version switching
-- Deno: DVM path configuration  
-- Java: OpenJDK path on macOS
-- Google Cloud SDK integration
-- Cargo (Rust) environment
+`${OSTYPE}`で`darwin*`/`linux*`を判定し、パッケージマネージャやPATHを切り替える。nvmはlazy-loading方式でシェル起動を高速化（stub関数で初回呼び出し時にロード）。ディレクトリ変更時に`.nvmrc`を検出して自動バージョン切り替え。
 
 ## System Dependencies (NeoVim)
-
-NeoVim plugins require the following system packages:
-
-### macOS (Homebrew)
-```bash
-brew install ripgrep fd lazygit
-brew tap daipeihust/tap && brew install im-select
-```
-
-### Linux (apt)
-```bash
-sudo apt install ripgrep fd-find
-# lazygit: https://github.com/jesseduffield/lazygit#installation
-```
-
-### Linux (dnf)
-```bash
-sudo dnf install ripgrep fd-find lazygit
-```
 
 | Package | Used by | Purpose |
 |---------|---------|---------|
@@ -96,9 +54,7 @@ sudo dnf install ripgrep fd-find lazygit
 
 ## Important Notes
 
-- The setup script removes existing bash and zsh configuration files
-- All configurations are managed through symlinks to this repository
-- The `.zshrc` uses lazy-loading for nvm to improve shell startup time (1.9s → 0.02s)
-- Automatically detects `.nvmrc` files when changing directories and switches Node versions
-- nvm is loaded on-demand when first used (nvm, node, npm, or npx commands)
-- Git completion and prompt functionality requires internet connection during setup
+- `set.zsh`は既存のbash/zsh設定ファイルをすべて削除する（バックアップなし）
+- テーマは全体的にgruvbox-dark-soft統一（NeoVim、Warp、Ghostty、bat）
+- Git設定で`push.default=current`、`fetch.prune=true`、`init.defaultBranch=master`
+- Gitエイリアス: `a`=add, `b`=branch, `c`=commit, `cm`=commit --message, `sw`=switch, `sc`=switch -c, `ps`/`pu`=push, `pl`=pull
