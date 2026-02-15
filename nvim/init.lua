@@ -29,6 +29,7 @@ local check_plugins = {
   { mod = 'conform',   name = 'conform.nvim' },
   { mod = 'lualine',   name = 'lualine.nvim' },
   { mod = 'barbar',    name = 'barbar.nvim' },
+  { mod = 'nvim-autopairs', name = 'nvim-autopairs' },
 }
 
 for _, plugin in ipairs(check_plugins) do
