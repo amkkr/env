@@ -2,7 +2,7 @@
 
 set -e
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
@@ -55,8 +55,9 @@ check_dependencies() {
 setup_shell_config() {
     log "Setting up shell configuration"
     
-    safe_remove ~/.bash*
-    safe_remove ~/.zsh*
+    for f in ~/.bash*(N) ~/.zshrc(N) ~/.zshenv(N) ~/.zprofile(N) ~/.zlogin(N) ~/.zlogout(N) ~/.zsh_history(N); do
+        safe_remove "$f"
+    done
     
     create_symlink "$SCRIPT_DIR/.zshrc" ~/.zshrc "zsh configuration"
     
@@ -74,11 +75,25 @@ setup_neovim() {
     create_symlink "$SCRIPT_DIR/nvim" ~/.config/nvim "NeoVim configuration"
 }
 
-setup_ghostty() {
-    log "Setting up Ghostty terminal configuration"
+setup_warp_terminal() {
+    log "Setting up Warp terminal configuration"
 
-    safe_mkdir ~/.config
-    create_symlink "$SCRIPT_DIR/ghostty" ~/.config/ghostty "Ghostty configuration"
+    case "${OSTYPE}" in
+        darwin*)
+            safe_mkdir ~/.warp
+            if [[ -d ~/.warp && ! -L ~/.warp ]]; then
+                for f in ~/.warp/*(N); do
+                    safe_remove "$f"
+                done
+            fi
+            create_symlink "$SCRIPT_DIR/warp/keybindings.yaml" ~/.warp/keybindings.yaml "Warp keybindings (macOS)"
+            safe_mkdir ~/.warp/themes
+            create_symlink "$SCRIPT_DIR/warp/themes/gruvbox-dark-soft.yaml" ~/.warp/themes/gruvbox-dark-soft.yaml "Warp theme (macOS)"
+            ;;
+        *)
+            log "Unsupported OS type: $OSTYPE, skipping Warp terminal setup"
+            ;;
+    esac
 }
 
 setup_claude_config() {
@@ -142,7 +157,7 @@ install_nvm() {
     # Note: nvm is configured for lazy-loading in .zshrc
     # to improve shell startup time
 
-    if curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash; then
+    if curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | zsh; then
         log "nvm installed successfully"
     else
         error "Failed to install nvm"
@@ -154,18 +169,18 @@ main() {
 
     check_dependencies
     setup_shell_config
-    setup_neovim
-    setup_ghostty
-    setup_claude_config
+    #setup_neovim
+    setup_warp_terminal
+    #setup_claude_config
     setup_git_completion
 
     if [[ -f ~/.zshrc ]]; then
         source ~/.zshrc
     fi
     
-    setup_vim_jetpack
-    install_dvm
-    install_nvm
+    #setup_vim_jetpack
+    #install_dvm
+    #install_nvm
     
     if [[ -f ~/.zshrc ]]; then
         source ~/.zshrc

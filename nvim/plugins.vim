@@ -43,6 +43,9 @@ Jetpack 'nvim-lualine/lualine.nvim'
 " Auto formatter
 Jetpack 'stevearc/conform.nvim'
 
+" Auto pairs (bracket auto-close)
+Jetpack 'windwp/nvim-autopairs'
+
 " Editorconfig plugin
 Jetpack 'editorconfig/editorconfig-vim'
 
@@ -132,6 +135,11 @@ lua <<EOF
       { name = 'cmdline' }
     })
   })
+
+  -- Set up nvim-autopairs with cmp integration
+  require('nvim-autopairs').setup({})
+  local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+  cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 
   -- Set up LSP (vim.lsp.config API for nvim 0.11+)
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
