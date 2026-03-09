@@ -37,13 +37,6 @@ create_symlink() {
 
 setup_shell_config() {
     log "Setting up shell configuration"
-<<<<<<< HEAD:set.sh
-
-    safe_remove ~/.bashrc
-
-    create_symlink "$SCRIPT_DIR/.bashrc" ~/.bashrc "bash configuration"
-
-=======
     
     for f in ~/.bash*(N) ~/.zshrc(N) ~/.zshenv(N) ~/.zprofile(N) ~/.zlogin(N) ~/.zlogout(N) ~/.zsh_history(N); do
         safe_remove "$f"
@@ -51,7 +44,6 @@ setup_shell_config() {
     
     create_symlink "$SCRIPT_DIR/.zshrc" ~/.zshrc "zsh configuration"
     
->>>>>>> master:set.zsh
     safe_remove ~/.gitconfig
     echo "[include]" > ~/.gitconfig
     echo "path = $SCRIPT_DIR/.gitconfig" >> ~/.gitconfig
@@ -61,13 +53,6 @@ setup_shell_config() {
 setup_nvim_config() {
     log "Setting up NeoVim configuration"
 
-<<<<<<< HEAD:set.sh
-    local nvim_config_dir="$HOME/AppData/Local/nvim"
-    local nvim_source_dir="$SCRIPT_DIR/nvim"
-
-    if [[ ! -d "$nvim_source_dir" ]]; then
-        error "NeoVim configuration directory $nvim_source_dir does not exist"
-=======
 setup_warp_terminal() {
     log "Setting up Warp terminal configuration"
 
@@ -124,7 +109,6 @@ setup_vim_jetpack() {
         log "vim-jetpack installed successfully"
     else
         error "Failed to install vim-jetpack"
->>>>>>> master:set.zsh
     fi
 
     # Create parent directory if it doesn't exist
@@ -132,32 +116,21 @@ setup_vim_jetpack() {
 
     safe_remove "$nvim_config_dir"
 
-<<<<<<< HEAD:set.sh
-    log "Creating symlink for NeoVim configuration"
-    ln -s "$nvim_source_dir" "$nvim_config_dir"
-
-    log "NeoVim configuration setup complete"
-=======
     if curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | zsh; then
         log "nvm installed successfully"
     else
         error "Failed to install nvm"
     fi
->>>>>>> master:set.zsh
 }
 
 main() {
     log "Starting environment setup for Git Bash"
 
     setup_shell_config
-<<<<<<< HEAD:set.sh
-    setup_nvim_config
-=======
     setup_neovim
     setup_warp_terminal
     setup_claude_config
     setup_git_completion
->>>>>>> master:set.zsh
 
     log "Environment setup completed successfully!"
     log "Please restart Git Bash to apply changes."
