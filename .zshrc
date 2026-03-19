@@ -198,3 +198,4 @@ eval "$(direnv hook zsh)"
 
 # 1Password CLI (commented out)
 # eval $(op signin)
+CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1

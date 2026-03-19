@@ -29,6 +29,7 @@
 [core]
 	editor = nvim
 	ignorecase = false
+	fileMode = false
 [init]
 	defaultBranch = master
 [pull]
