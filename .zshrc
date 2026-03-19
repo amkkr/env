@@ -195,3 +195,7 @@ eval "$(direnv hook zsh)"
 
 # Tab completion for packages
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+
+# 1Password CLI (commented out)
+# eval $(op signin)
+CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
