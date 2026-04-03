@@ -124,8 +124,18 @@ nvm() {
 # nvm defaultバージョンのbinをPATHに追加（whichで実パスを返せるようにする）
 if [ -s "$NVM_DIR/alias/default" ]; then
     NVM_DEFAULT=$(cat "$NVM_DIR/alias/default")
-    NVM_NODE_DIR=$(ls -d "$NVM_DIR/versions/node/v${NVM_DEFAULT}"* 2>/dev/null | sort -V | tail -1)
+    # エイリアスチェーンを解決（例: default -> node -> 22 -> 22.x.x）
+    while [ -s "$NVM_DIR/alias/$NVM_DEFAULT" ]; do
+        NVM_DEFAULT=$(cat "$NVM_DIR/alias/$NVM_DEFAULT")
+    done
+    if [ "$NVM_DEFAULT" = "node" ]; then
+        # "node"はnvm組み込みエイリアスで最新バージョンを意味する
+        NVM_NODE_DIR=$(ls -d "$NVM_DIR/versions/node/v"* 2>/dev/null | sort -V | tail -1)
+    else
+        NVM_NODE_DIR=$(ls -d "$NVM_DIR/versions/node/v${NVM_DEFAULT}"* 2>/dev/null | sort -V | tail -1)
+    fi
     [ -d "$NVM_NODE_DIR" ] && export PATH="$NVM_NODE_DIR/bin:$PATH"
+    unset NVM_DEFAULT NVM_NODE_DIR
 fi
 
 # Auto-switch Node version when changing directory
@@ -199,3 +209,6 @@ eval "$(direnv hook zsh)"
 # 1Password CLI (commented out)
 # eval $(op signin)
 CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
+
+# bun completions
+[ -s "/home/amkkr/.bun/_bun" ] && source "/home/amkkr/.bun/_bun"
