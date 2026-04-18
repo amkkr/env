@@ -42,10 +42,14 @@ setup_shell_config() {
 
     create_symlink "$SCRIPT_DIR/.bashrc" ~/.bashrc "bash configuration"
 
-    safe_remove ~/.gitconfig
-    echo "[include]" > ~/.gitconfig
-    echo "path = $SCRIPT_DIR/.gitconfig" >> ~/.gitconfig
-    log "Git configuration setup complete"
+    # /d/repos/env 形式ではWindows版Gitがincludeを解決できないのでD:/repos/env形式に変換する
+    local win_script_dir
+    win_script_dir="$(cygpath -m "$SCRIPT_DIR")"
+
+    touch ~/.gitconfig
+    git config --global --unset-all include.path 2>/dev/null || true
+    git config --global include.path "$win_script_dir/.gitconfig"
+    log "Git include set to $win_script_dir/.gitconfig"
 }
 
 setup_nvim_config() {
