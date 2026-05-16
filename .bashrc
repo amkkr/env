@@ -52,18 +52,6 @@ alias cdpic='cd ~/Pictures'
 # Development aliases
 alias dockere='docker exec -u 0 -it'
 
-# -----------------------------------------------------------------------------
-# Development Environment Setup
-# -----------------------------------------------------------------------------
-
-# Node.js environment (NVM for Windows uses nvm-windows, no sourcing needed)
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-# Deno environment
-export PATH="$HOME/.deno/bin:$PATH"
-
 # Bun environment
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
@@ -71,17 +59,9 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Rust environment
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
-# Go environment
-export GOPATH=$HOME/go
-export GOBIN=$GOPATH/bin
-export PATH=$PATH:$GOBIN
-
 # -----------------------------------------------------------------------------
 # Tool-Specific Configuration
 # -----------------------------------------------------------------------------
 
 # Bat theme
 export BAT_THEME=gruvbox-dark
-
-# Local Install Claude Code
-export PATH="$HOME/.claude/local:$PATH"
