@@ -6,6 +6,8 @@ VSCodeライクな操作性を持つ、モダンなNeovim設定です。
 
 ### 1. プラグインのインストール
 
+> **先に`tree-sitter-cli`を入れてください。** `:JetpackSync`はnvim-treesitterのパーサをビルドするため、`tree-sitter-cli`が無いとパーサごとに1件ずつ、計19件のビルドエラーが出ます。手順は「2. 外部ツールのインストール」を参照。
+
 ```bash
 # Neovimを開く
 nvim
@@ -85,6 +87,8 @@ Masonが開いたら、以下をインストール:
 | `:FormatDisable!` | 現在のバッファのみ |
 | `:FormatDisable` | 全体 |
 | `:FormatEnable` | 再有効化 |
+
+`:FormatEnable`は`vim.b`をカレントバッファにしか設定しないため、`<leader>mf`や`:FormatDisable!`でバッファ単位に無効化した状態は、**当該バッファ上で**`:FormatEnable`しないと解除されません。
 
 なお`deno.json`/`deno.jsonc`があるプロジェクト配下では、リポジトリ側のdeno設定が尊重されます (`--prose-wrap`を上書きしません)。
 
@@ -172,7 +176,7 @@ Masonが開いたら、以下をインストール:
 ### Markdown
 | キー | 動作 |
 |------|------|
-| `<leader>mp` | レンダリング表示の切替 |
+| `<leader>mp` | レンダリング表示の切替 (このバッファのみ) |
 | `<leader>ms` | スペルチェックの切替 |
 | `<leader>mf` | 保存時フォーマットの切替 (このバッファのみ) |
 | `gO` | アウトライン表示 (NeoVim標準) |
@@ -275,6 +279,20 @@ require("conform").setup({
 4. GUI版NeoVimはログインシェルのPATHを引き継がず、`~/.dvm/bin`が入らない場合がある
 
 denoもprettierも見つからない場合、Markdownを開いた時に警告が表示されます。
+
+### 既知の制約: Go / Python / C系ではtreesitterが有効にならない
+
+`filetype.vim`が拡張子を独自のfiletypeに振っているため、treesitterのFileType autocmdに一致せず、これらの言語ではtreesitterハイライトが有効になりません。
+
+| 拡張子 | 実際のfiletype | 期待されるfiletype |
+|--------|----------------|--------------------|
+| `.py` / `.pyx` | `py` | `python` |
+| `.go` | `tab4` | `go` |
+| `.c` / `.h` / `.cpp` / `.hpp` | `tab4` | `c` / `cpp` |
+
+`go` / `gomod` / `python`のパーサはコンパイルされますが使われません。将来`filetype.vim`を修正すれば即座に有効になるため、パーサ一覧からは削除していません。
+
+解消するには`filetype.vim`を廃止し、インデント設定を`after/ftplugin/{go,python,c}.lua`に移す必要があります (本設定の対象外)。
 
 ## 📚 参考リンク
 
