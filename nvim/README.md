@@ -40,7 +40,16 @@ pip install black
 
 # Go用 (goが既にインストールされている場合)
 go install golang.org/x/tools/cmd/gofmt@latest
+
+# Markdownフォーマッター (deno)
+# set.zshはdvm (Deno Version Manager) のみ導入するため、deno本体は別途必要
+dvm install
+
+# Treesitterパーサのコンパイルに必要 (0.26.1以上)
+brew install tree-sitter-cli
 ```
+
+> Linuxでは`tree-sitter-cli`は`cargo install tree-sitter-cli`で導入します
 
 ### 3. LSPサーバーのインストール
 
@@ -55,6 +64,29 @@ Masonが開いたら、以下をインストール:
 - `lua-language-server` (Lua)
 - `gopls` (Go)
 - `intelephense` (PHP)
+
+## ⚠️ 注意: Markdownは保存時に自動フォーマットされます
+
+`.md`ファイルは保存時に`deno fmt`で整形されます。**既存ファイルを開いて保存すると、初回に広範囲が書き換わります。**
+
+書き換わる例:
+
+- リスト記号の統一 (`*` → `-`)
+- テーブルの桁揃え
+- **コードフェンス内のコード** (`` ```ts ``ブロックの中身にセミコロンが付く等)
+
+他人のリポジトリのREADMEを開く際は特に注意してください。
+
+### 止める方法
+
+| 方法 | 範囲 |
+|------|------|
+| `<leader>mf` | 現在のバッファのみ (トグル) |
+| `:FormatDisable!` | 現在のバッファのみ |
+| `:FormatDisable` | 全体 |
+| `:FormatEnable` | 再有効化 |
+
+なお`deno.json`/`deno.jsonc`があるプロジェクト配下では、リポジトリ側のdeno設定が尊重されます (`--prose-wrap`を上書きしません)。
 
 ## 📦 インストールされるプラグイン
 
@@ -71,6 +103,12 @@ Masonが開いたら、以下をインストール:
 ### コード編集
 - **conform.nvim** - 自動フォーマッター (保存時実行)
 - **editorconfig-vim** - EditorConfig対応
+
+### Markdown
+- **render-markdown.nvim** - バッファ内Markdownレンダリング
+
+### シンタックスハイライト
+- **nvim-treesitter** - Treesitterベースのハイライト (mainブランチ)
 
 ### LSP & 補完
 - **mason.nvim** - LSPインストーラー
@@ -131,6 +169,15 @@ Masonが開いたら、以下をインストール:
 | `Cmd+Shift+I` | コードフォーマット |
 | `<leader>f` | コードフォーマット |
 
+### Markdown
+| キー | 動作 |
+|------|------|
+| `<leader>mp` | レンダリング表示の切替 |
+| `<leader>ms` | スペルチェックの切替 |
+| `<leader>mf` | 保存時フォーマットの切替 (このバッファのみ) |
+| `gO` | アウトライン表示 (NeoVim標準) |
+| `]]` / `[[` | 次/前の見出しに移動 (NeoVim標準) |
+
 ### ターミナル
 | キー | 動作 |
 |------|------|
@@ -147,9 +194,12 @@ nvim/
 ├── init.lua              # エントリーポイント
 ├── config.vim            # 基本設定
 ├── plugins.vim           # プラグイン定義
-└── lua/
-    ├── plugin-config.lua # プラグイン設定
-    └── keybindings.lua   # キーバインド設定
+├── lua/
+│   ├── plugin-config.lua # プラグイン設定
+│   └── keybindings.lua   # キーバインド設定
+└── after/
+    └── ftplugin/
+        └── markdown.lua  # Markdown用のバッファローカル設定
 ```
 
 ## 📝 カスタマイズ
@@ -216,6 +266,15 @@ require("conform").setup({
 
 1. フォーマッターがインストールされているか確認
 2. `:ConformInfo`でステータス確認
+
+### Markdownがフォーマットされない
+
+1. `:ConformInfo`を開き、`Formatters for this buffer:`の下を確認
+2. `deno_fmt ready (markdown) /path/to/deno`と表示されていれば正常
+3. `deno_fmt unavailable: Command 'deno' not found`の場合はdenoがPATHにない → `dvm install`を実行
+4. GUI版NeoVimはログインシェルのPATHを引き継がず、`~/.dvm/bin`が入らない場合がある
+
+denoもprettierも見つからない場合、Markdownを開いた時に警告が表示されます。
 
 ## 📚 参考リンク
 
