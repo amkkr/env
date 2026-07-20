@@ -125,16 +125,71 @@ require("conform").setup({
     css = { "prettier" },
     html = { "prettier" },
     yaml = { "prettier" },
-    markdown = { "prettier" },
+    -- Markdown: deno fmt を使用 (CJK の表示幅を考慮してテーブルを整形できる)
+    -- 注: stop_after_first は「deno が PATH に無い」場合のみ prettier に落ちる。
+    -- 「deno が起動して失敗」した場合は落ちない
+    markdown = { "deno_fmt", "prettier", stop_after_first = true },
     lua = { "stylua" },
     go = { "gofmt" },
     python = { "black" },
   },
-  format_on_save = {
-    timeout_ms = 500,
-    lsp_fallback = true,
+  formatters = {
+    deno_fmt = {
+      -- conform 組み込みの deno_fmt は cwd を持たないため、deno は nvim の
+      -- プロセス cwd から deno.json を探す。下の append_args は編集中ファイルの
+      -- ディレクトリから探すので、両者がズレると「フラグも外れ、deno.json も
+      -- 見つからない」状態になり deno 既定の proseWrap=always が適用される
+      -- (例: ~ から nvim を起動して deno プロジェクトの .md を開いた場合)。
+      -- cwd を明示して deno 側の解決基準を append_args と一致させる。
+      -- require_cwd は既定の false のままにすること。true にすると
+      -- deno プロジェクト外で deno_fmt が実行されなくなる
+      cwd = require("conform.util").root_file({ "deno.json", "deno.jsonc" }),
+      -- deno fmt の既定は --prose-wrap=always で、英文を80桁で強制改行する
+      -- (日本語は分割点が無いため折り返されない)。既存文書の全面書き換えを
+      -- 避けるため preserve を渡すが、deno プロジェクト配下では deno.json の
+      -- 設定を尊重してフラグを付けない (付けると deno fmt --check が CI で落ちる)。
+      -- 引数は必ず append すること。prepend すると
+      -- `deno --prose-wrap preserve fmt` となり deno が引数エラーで失敗する
+      append_args = function(_, ctx)
+        local deno_config = vim.fs.find(
+          { "deno.json", "deno.jsonc" },
+          { upward = true, path = ctx.dirname }
+        )
+        if deno_config[1] then
+          return {}
+        end
+        return { "--prose-wrap", "preserve" }
+      end,
+    },
   },
+  -- 保存時の自動フォーマット。
+  -- 関数形式の契約: nil / false を返すとスキップ、テーブルを返すと実行。
+  -- {} も Lua では truthy なので「無効化したい時は必ず nil を返す」こと。
+  -- disable_autoformat は conform の組み込み機能ではなく、この関数で解釈している
+  format_on_save = function(bufnr)
+    if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+      return nil
+    end
+    return { timeout_ms = 500, lsp_format = "fallback" }
+  end,
 })
+
+-- 保存時フォーマットの一時無効化 / 再有効化
+--   :FormatDisable   全体を無効化
+--   :FormatDisable!  現在のバッファのみ無効化
+--   :FormatEnable    再有効化
+vim.api.nvim_create_user_command("FormatDisable", function(args)
+  if args.bang then
+    vim.b.disable_autoformat = true
+  else
+    vim.g.disable_autoformat = true
+  end
+end, { desc = "保存時の自動フォーマットを無効化", bang = true })
+
+vim.api.nvim_create_user_command("FormatEnable", function()
+  vim.b.disable_autoformat = false
+  vim.g.disable_autoformat = false
+end, { desc = "保存時の自動フォーマットを有効化" })
 
 -- ============================================
 -- Lualine (Status Line)
@@ -190,6 +245,58 @@ require('barbar').setup({
     inactive = {button = '×'},
     visible = {modified = {buffer_number = false}},
   },
+})
+
+-- ============================================
+-- Render Markdown (In-buffer Markdown Viewer)
+-- ============================================
+-- conceallevel / concealcursor はこのプラグインがウィンドウ単位で管理するため、
+-- ftplugin 側では設定しないこと (rendered=3 / default=vim.o.conceallevel)
+require("render-markdown").setup({})
+
+-- ============================================
+-- Treesitter (Syntax Highlighting)
+-- ============================================
+-- main ブランチの API (master の nvim-treesitter.configs は存在しない)。
+-- NeoVim 0.12 は c / lua / markdown / markdown_inline / query / vim / vimdoc の
+-- 7パーサを同梱するため、これらは install しない。
+-- ただし標準の ftplugin が vim.treesitter.start() を呼ぶのは
+-- help / lua / markdown / query の4つだけで、c と vim では呼ばれない。
+-- そのため c / vim は install 不要だが ts_filetypes には入れる
+require("nvim-treesitter").setup({})
+
+-- パーサ名 (install 用)。NeoVim 同梱の7パーサは含めない。
+-- jsonc はパーサではなく json パーサへの filetype 別名なので入れないこと
+-- (入れると起動のたびに skipping unsupported language: jsonc が出る)
+local ts_parsers = {
+  "typescript", "tsx", "javascript",
+  "go", "gomod", "php", "python",
+  "json", "yaml", "toml", "html", "css",
+  "bash", "gitcommit", "diff",
+}
+
+-- filetype 名 (autocmd 用)。パーサ名と一致しないものがあるため別に持つ
+-- 例: tsx パーサ ↔ typescriptreact、javascript パーサ ↔ javascriptreact、
+-- jsonc filetype ↔ json パーサ
+-- c / vim はパーサ同梱だが ftplugin が start() を呼ばないためここで補う
+local ts_filetypes = {
+  "typescript", "typescriptreact", "javascript", "javascriptreact",
+  "go", "gomod", "php", "python",
+  "json", "jsonc", "yaml", "toml", "html", "css",
+  "sh", "bash", "gitcommit", "diff",
+  "c", "vim",
+}
+
+require("nvim-treesitter").install(ts_parsers)
+
+-- main ブランチはハイライトを自動で有効化しないため FileType で明示する。
+-- augroup で囲まないと :source $MYVIMRC のたびに重複登録される
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("UserTreesitter", { clear = true }),
+  pattern = ts_filetypes,
+  callback = function(args)
+    pcall(vim.treesitter.start, args.buf)
+  end,
 })
 
 print("Plugin configurations loaded successfully")
