@@ -125,10 +125,33 @@ require("conform").setup({
     css = { "prettier" },
     html = { "prettier" },
     yaml = { "prettier" },
-    markdown = { "prettier" },
+    -- Markdown: deno fmt を使用 (CJK の表示幅を考慮してテーブルを整形できる)
+    -- 注: stop_after_first は「deno が PATH に無い」場合のみ prettier に落ちる。
+    -- 「deno が起動して失敗」した場合は落ちない
+    markdown = { "deno_fmt", "prettier", stop_after_first = true },
     lua = { "stylua" },
     go = { "gofmt" },
     python = { "black" },
+  },
+  formatters = {
+    deno_fmt = {
+      -- deno fmt の既定は --prose-wrap=always で、英文を80桁で強制改行する
+      -- (日本語は分割点が無いため折り返されない)。既存文書の全面書き換えを
+      -- 避けるため preserve を渡すが、deno プロジェクト配下では deno.json の
+      -- 設定を尊重してフラグを付けない (付けると deno fmt --check が CI で落ちる)。
+      -- 引数は必ず append すること。prepend すると
+      -- `deno --prose-wrap preserve fmt` となり deno が引数エラーで失敗する
+      append_args = function(_, ctx)
+        local deno_config = vim.fs.find(
+          { "deno.json", "deno.jsonc" },
+          { upward = true, path = ctx.dirname }
+        )
+        if deno_config[1] then
+          return {}
+        end
+        return { "--prose-wrap", "preserve" }
+      end,
+    },
   },
   -- 保存時の自動フォーマット。
   -- 関数形式の契約: nil / false を返すとスキップ、テーブルを返すと実行。
