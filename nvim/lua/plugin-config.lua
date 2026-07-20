@@ -130,11 +130,34 @@ require("conform").setup({
     go = { "gofmt" },
     python = { "black" },
   },
-  format_on_save = {
-    timeout_ms = 500,
-    lsp_fallback = true,
-  },
+  -- 保存時の自動フォーマット。
+  -- 関数形式の契約: nil / false を返すとスキップ、テーブルを返すと実行。
+  -- {} も Lua では truthy なので「無効化したい時は必ず nil を返す」こと。
+  -- disable_autoformat は conform の組み込み機能ではなく、この関数で解釈している
+  format_on_save = function(bufnr)
+    if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+      return nil
+    end
+    return { timeout_ms = 500, lsp_format = "fallback" }
+  end,
 })
+
+-- 保存時フォーマットの一時無効化 / 再有効化
+--   :FormatDisable   全体を無効化
+--   :FormatDisable!  現在のバッファのみ無効化
+--   :FormatEnable    再有効化
+vim.api.nvim_create_user_command("FormatDisable", function(args)
+  if args.bang then
+    vim.b.disable_autoformat = true
+  else
+    vim.g.disable_autoformat = true
+  end
+end, { desc = "保存時の自動フォーマットを無効化", bang = true })
+
+vim.api.nvim_create_user_command("FormatEnable", function()
+  vim.b.disable_autoformat = false
+  vim.g.disable_autoformat = false
+end, { desc = "保存時の自動フォーマットを有効化" })
 
 -- ============================================
 -- Lualine (Status Line)
