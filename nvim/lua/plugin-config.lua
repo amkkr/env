@@ -238,4 +238,11 @@ require('barbar').setup({
   },
 })
 
+-- ============================================
+-- Render Markdown (In-buffer Markdown Viewer)
+-- ============================================
+-- conceallevel / concealcursor はこのプラグインがウィンドウ単位で管理するため、
+-- ftplugin 側では設定しないこと (rendered=3 / default=vim.o.conceallevel)
+require("render-markdown").setup({})
+
 print("Plugin configurations loaded successfully")

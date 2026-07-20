@@ -57,6 +57,14 @@ Jetpack 'leafgarland/typescript-vim'
 Jetpack 'peitalin/vim-jsx-typescript'
 
 " ============================================
+" Markdown (Rendering & Editing)
+" ============================================
+" バッファ内 Markdown レンダラー
+" markdown / markdown_inline パーサとクエリは NeoVim 0.12 に同梱されており、
+" nvim-treesitter プラグインは不要 (実行時コードにも依存が無いことを確認済み)
+Jetpack 'MeanderingProgrammer/render-markdown.nvim'
+
+" ============================================
 " LSP & Completion
 " ============================================
 " nvim lsp
