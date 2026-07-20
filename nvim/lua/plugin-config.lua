@@ -245,4 +245,39 @@ require('barbar').setup({
 -- ftplugin 側では設定しないこと (rendered=3 / default=vim.o.conceallevel)
 require("render-markdown").setup({})
 
+-- ============================================
+-- Treesitter (Syntax Highlighting)
+-- ============================================
+-- main ブランチの API (master の nvim-treesitter.configs は存在しない)。
+-- c / lua / markdown / markdown_inline / query / vim / vimdoc は NeoVim 同梱の
+-- ため列挙しない。これらの ftplugin は標準で vim.treesitter.start() を呼ぶ
+require("nvim-treesitter").setup({})
+
+-- パーサ名 (install 用)
+local ts_parsers = {
+  "typescript", "tsx", "javascript",
+  "go", "gomod", "php", "python",
+  "json", "jsonc", "yaml", "toml", "html", "css",
+  "bash", "gitcommit", "diff",
+}
+
+-- filetype 名 (autocmd 用)。パーサ名と一致しないものがあるため別に持つ
+-- 例: tsx パーサ ↔ typescriptreact、javascript パーサ ↔ javascriptreact
+local ts_filetypes = {
+  "typescript", "typescriptreact", "javascript", "javascriptreact",
+  "go", "gomod", "php", "python",
+  "json", "jsonc", "yaml", "toml", "html", "css",
+  "sh", "bash", "gitcommit", "diff",
+}
+
+require("nvim-treesitter").install(ts_parsers)
+
+-- main ブランチはハイライトを自動で有効化しないため FileType で明示する
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = ts_filetypes,
+  callback = function()
+    pcall(vim.treesitter.start)
+  end,
+})
+
 print("Plugin configurations loaded successfully")

@@ -65,6 +65,13 @@ Jetpack 'peitalin/vim-jsx-typescript'
 Jetpack 'MeanderingProgrammer/render-markdown.nvim'
 
 " ============================================
+" Treesitter (Syntax Highlighting)
+" ============================================
+" main ブランチ。master は NeoVim 0.12 非対応
+" 要 tree-sitter-cli 0.26.1+ (brew install tree-sitter-cli)
+Jetpack 'nvim-treesitter/nvim-treesitter'
+
+" ============================================
 " LSP & Completion
 " ============================================
 " nvim lsp

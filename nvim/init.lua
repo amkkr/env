@@ -31,6 +31,7 @@ local check_plugins = {
   { mod = 'barbar',    name = 'barbar.nvim' },
   { mod = 'nvim-autopairs', name = 'nvim-autopairs' },
   { mod = 'render-markdown', name = 'render-markdown.nvim' },
+  { mod = 'nvim-treesitter', name = 'nvim-treesitter' },
 }
 
 for _, plugin in ipairs(check_plugins) do
