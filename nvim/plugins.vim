@@ -67,9 +67,11 @@ Jetpack 'MeanderingProgrammer/render-markdown.nvim'
 " ============================================
 " Treesitter (Syntax Highlighting)
 " ============================================
-" main ブランチ。master は NeoVim 0.12 非対応
+" main ブランチ。master は NeoVim 0.12 非対応。
+" 既定ブランチは現状 main だが、変わると master の別 API を掴んで
+" 起動時エラーになるため明示する
 " 要 tree-sitter-cli 0.26.1+ (brew install tree-sitter-cli)
-Jetpack 'nvim-treesitter/nvim-treesitter'
+Jetpack 'nvim-treesitter/nvim-treesitter', {'branch': 'main'}
 
 " ============================================
 " LSP & Completion

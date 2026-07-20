@@ -258,34 +258,44 @@ require("render-markdown").setup({})
 -- Treesitter (Syntax Highlighting)
 -- ============================================
 -- main ブランチの API (master の nvim-treesitter.configs は存在しない)。
--- c / lua / markdown / markdown_inline / query / vim / vimdoc は NeoVim 同梱の
--- ため列挙しない。これらの ftplugin は標準で vim.treesitter.start() を呼ぶ
+-- NeoVim 0.12 は c / lua / markdown / markdown_inline / query / vim / vimdoc の
+-- 7パーサを同梱するため、これらは install しない。
+-- ただし標準の ftplugin が vim.treesitter.start() を呼ぶのは
+-- help / lua / markdown / query の4つだけで、c と vim では呼ばれない。
+-- そのため c / vim は install 不要だが ts_filetypes には入れる
 require("nvim-treesitter").setup({})
 
--- パーサ名 (install 用)
+-- パーサ名 (install 用)。NeoVim 同梱の7パーサは含めない。
+-- jsonc はパーサではなく json パーサへの filetype 別名なので入れないこと
+-- (入れると起動のたびに skipping unsupported language: jsonc が出る)
 local ts_parsers = {
   "typescript", "tsx", "javascript",
   "go", "gomod", "php", "python",
-  "json", "jsonc", "yaml", "toml", "html", "css",
+  "json", "yaml", "toml", "html", "css",
   "bash", "gitcommit", "diff",
 }
 
 -- filetype 名 (autocmd 用)。パーサ名と一致しないものがあるため別に持つ
--- 例: tsx パーサ ↔ typescriptreact、javascript パーサ ↔ javascriptreact
+-- 例: tsx パーサ ↔ typescriptreact、javascript パーサ ↔ javascriptreact、
+-- jsonc filetype ↔ json パーサ
+-- c / vim はパーサ同梱だが ftplugin が start() を呼ばないためここで補う
 local ts_filetypes = {
   "typescript", "typescriptreact", "javascript", "javascriptreact",
   "go", "gomod", "php", "python",
   "json", "jsonc", "yaml", "toml", "html", "css",
   "sh", "bash", "gitcommit", "diff",
+  "c", "vim",
 }
 
 require("nvim-treesitter").install(ts_parsers)
 
--- main ブランチはハイライトを自動で有効化しないため FileType で明示する
+-- main ブランチはハイライトを自動で有効化しないため FileType で明示する。
+-- augroup で囲まないと :source $MYVIMRC のたびに重複登録される
 vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("UserTreesitter", { clear = true }),
   pattern = ts_filetypes,
-  callback = function()
-    pcall(vim.treesitter.start)
+  callback = function(args)
+    pcall(vim.treesitter.start, args.buf)
   end,
 })
 
