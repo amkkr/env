@@ -135,6 +135,15 @@ require("conform").setup({
   },
   formatters = {
     deno_fmt = {
+      -- conform 組み込みの deno_fmt は cwd を持たないため、deno は nvim の
+      -- プロセス cwd から deno.json を探す。下の append_args は編集中ファイルの
+      -- ディレクトリから探すので、両者がズレると「フラグも外れ、deno.json も
+      -- 見つからない」状態になり deno 既定の proseWrap=always が適用される
+      -- (例: ~ から nvim を起動して deno プロジェクトの .md を開いた場合)。
+      -- cwd を明示して deno 側の解決基準を append_args と一致させる。
+      -- require_cwd は既定の false のままにすること。true にすると
+      -- deno プロジェクト外で deno_fmt が実行されなくなる
+      cwd = require("conform.util").root_file({ "deno.json", "deno.jsonc" }),
       -- deno fmt の既定は --prose-wrap=always で、英文を80桁で強制改行する
       -- (日本語は分割点が無いため折り返されない)。既存文書の全面書き換えを
       -- 避けるため preserve を渡すが、deno プロジェクト配下では deno.json の
