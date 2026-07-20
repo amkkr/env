@@ -32,8 +32,10 @@ vim.opt_local.spell = true
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true, buffer = true }
 
--- レンダリング表示の切替
-map("n", "<leader>mp", "<Cmd>RenderMarkdown toggle<CR>", opts)
+-- レンダリング表示の切替。
+-- toggle ではなく buf_toggle を使うこと。toggle は state.enabled を
+-- 全バッファに配るため、バッファローカルなキーマップと挙動が食い違う
+map("n", "<leader>mp", "<Cmd>RenderMarkdown buf_toggle<CR>", opts)
 
 -- スペルチェックの切替
 map("n", "<leader>ms", "<Cmd>setlocal spell!<CR>", opts)
