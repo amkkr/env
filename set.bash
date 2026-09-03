@@ -41,6 +41,7 @@ setup_shell_config() {
     safe_remove ~/.bashrc
 
     create_symlink "$SCRIPT_DIR/.bashrc" ~/.bashrc "bash configuration"
+    create_symlink "$SCRIPT_DIR/.inputrc" ~/.inputrc "readline configuration"
 
     # /d/repos/env 形式ではWindows版Gitがincludeを解決できないのでD:/repos/env形式に変換する
     local win_script_dir
