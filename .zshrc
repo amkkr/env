@@ -9,8 +9,7 @@ autoload colors && colors
 
 # History configuration
 HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=1000 SAVEHIST=1000
 
 # Key bindings
 bindkey "^[[1;5C" forward-word
@@ -197,7 +196,7 @@ eval "$(direnv hook zsh)"
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 
 # Claude Code Allow Agentic Teams
-CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
+CLAUDE_CODE_SUBAGENT_MODEL=opus
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/yakuratenshin/.docker/completions $fpath)
 autoload -Uz compinit
