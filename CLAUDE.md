@@ -63,14 +63,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### マシン別ブランチ
 
-4つのブランチがそれぞれ別マシンの環境に対応する。差分欄は現時点の例で、各環境で変更すれば当然増減する。
+4つのブランチがそれぞれ別マシンの環境に対応する。
 
-| ブランチ | 対象環境 | ブランチ固有の差分（現時点） |
-|---|---|---|
-| `master` | メインmacOS / 全ブランチの統合元 | - |
-| `release/office` | 業務用macOS | `warp/settings.toml`、`.zshrc`末尾のDocker Desktop補完、`.claude.md`の大幅書き換え |
-| `gitbash` | Windows / Git Bash | `.bashrc`、`set.bash`、bash化した`set.zsh`、`.gitconfig`の`autocrlf = input`、`.claude/settings.local.json` |
-| `wsl-ubuntu` | WSL2 (Ubuntu) | `.zshrc`のapt版`upd`エイリアス・nvmエイリアスチェーン解決・bun補完、`.claude.md`の独自セクション |
+| ブランチ | 対象環境 |
+|---|---|
+| `master` | メインmacOS / 全ブランチの統合元 |
+| `release/office` | 業務用macOS |
+| `gitbash` | Windows / Git Bash |
+| `wsl-ubuntu` | WSL2 (Ubuntu) |
 
 ### 同期ルール
 
@@ -87,12 +87,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### 同期時の注意箇所
 
-| ファイル | 状況 | 方針 |
-|---|---|---|
-| `.claude.md` | 3ブランチとも独自に再編しており、master側の更新頻度も高い。**現状唯一の実コンフリクト源**（`wsl-ubuntu`で発生） | 行単位マージに任せず、見出し・項目単位で手動マージする |
-| `set.zsh` | `gitbash`のセットアップ実体は`set.bash`（`set.zsh`を参照しない自己完結スクリプト）で、`set.zsh`は呼ばれないデッドコード。ただしmaster側が更新するたび衝突し、雑な解決の結果**現在は壊れている**（`main`が存在しない`setup_neovim`を呼ぶ、`setup_nvim_config`が空、`$nvim_config_dir`未定義） | `gitbash`の`set.zsh`はmasterと同一に保つ（`git checkout master -- set.zsh`）。同一なら以後衝突しない。削除すると毎回modify/deleteコンフリクトになるので消さない。gitbash向けの変更は`set.bash`だけに入れる |
-| `.zshrc` | 環境ごとに末尾追記（office=Docker補完、wsl=bun補完）と`linux*`ブロックの`upd`エイリアスが分岐。ブランチ同士は混ざらないため、masterが同じ箇所を触ったときのみ衝突する | 環境固有行はブランチ側を残し、共通部分だけmasterを取り込む |
-| `.gitconfig` | `gitbash`のみ`[core]`に`autocrlf = input`を追加。衝突はしない | マージ時にこの行を消さない |
-| `.claude/settings.local.json` | `gitbash`のみコミット済み。`.claude/`はmasterの`.gitignore`に未記載 | masterへ逆流させない。master側で同名ファイルが生まれると衝突する |
+| ファイル | 方針 |
+|---|---|
+| `.claude.md` | 各ブランチが独自に再編しがちで衝突しやすい。行単位の自動マージに任せず、見出し・項目単位で手動マージする |
+| `set.zsh` | `gitbash`のセットアップ実体は`set.bash`（`set.zsh`を参照しない自己完結スクリプト）。`set.zsh`はmasterと同一に保てば衝突しない。削除するとmodify/deleteコンフリクトになるので消さない。gitbash向けの変更は`set.bash`だけに入れる |
+| `.zshrc` | 環境固有の末尾追記や`linux*`ブロックのエイリアスはブランチ側を残し、共通部分だけmasterを取り込む |
+| `.gitconfig` | `gitbash`の`autocrlf`など環境固有行をマージ時に消さない |
+| `.claude/settings.local.json` | ローカル専用設定。masterへ逆流させない |
 
 `nvim/`配下はOS非依存なので、NeoVim設定の変更はmasterで行い環境ブランチ側では直接触らない。環境ブランチで変更すると以後の同期で衝突源になる。
