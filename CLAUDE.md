@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-個人の環境設定リポジトリ(dotfiles)。macOSとLinuxのシェル、ターミナル、エディタ設定を管理する。
+個人の環境設定リポジトリ(dotfiles)。macOS・Linux(zsh)とWindows(Git Bash)のシェル、ターミナル、エディタ設定を管理する。
 
 ## Setup
 
@@ -20,6 +20,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Warp/Ghosttyターミナル設定(macOSのみ)
 - git completion/promptスクリプトのダウンロード
 - vim-jetpack、nvm、dvmのインストール
+
+Windows(Git Bash)では`set.zsh`ではなく`set.bash`を使う:
+
+```bash
+./set.bash
+```
+
+このスクリプトは以下を行う(`set.zsh`を参照しない自己完結スクリプト):
+- `.bashrc` → `~/.bashrc`、`.inputrc` → `~/.inputrc` のシンボリンク
+- `git config --global include.path`をWindows形式のパス(`D:/repos/env/.gitconfig`形式、`cygpath -m`で変換)で設定
+- `nvim/` → `~/AppData/Local/nvim` のシンボリンク
 
 ## Architecture
 
@@ -57,42 +68,39 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `set.zsh`は既存のbash/zsh設定ファイルをすべて削除する（バックアップなし）
 - テーマは全体的にgruvbox-dark-soft統一（NeoVim、Warp、Ghostty、bat）
 - Git設定で`push.default=current`、`fetch.prune=true`、`init.defaultBranch=master`
+- `.gitconfig`の`core.autocrlf=input`はWindows(Git Bash)向け。コミット時にCRLFをLFへ変換し、チェックアウト時は変換しない。macOSでも共有される
 - Gitエイリアス: `a`=add, `b`=branch, `c`=commit, `cm`=commit --message, `sw`=switch, `sc`=switch -c, `ps`/`pu`=push, `pl`=pull
 
 ## ブランチ運用
 
-### マシン別ブランチ
-
-4つのブランチがそれぞれ別マシンの環境に対応する。
+### ブランチ構成
 
 | ブランチ | 対象環境 |
 |---|---|
-| `master` | メインmacOS / 全ブランチの統合元 |
-| `release/office` | 業務用macOS |
-| `gitbash` | Windows / Git Bash |
-| `wsl-ubuntu` | WSL2 (Ubuntu) |
+| `master` | メインmacOS + Windows(Git Bash)の共通設定 / 同期元 |
+| `release/office` | 業務用macOS。仕事用プロファイルを含む |
 
 ### 同期ルール
 
-- 設定の修正やNeoVim設定の追加などを行ったら、その変更を4ブランチすべてにローカルでmergeしてpushする
-- **ブランチ間の同期にPRは不要**。ローカルで`git merge`して直接pushしてよい
-- グローバルルールとの関係: **PR必須**はこの同期マージのみ例外。**masterへの直接コミット禁止 / ブランチ作成必須 / rebase禁止**は例外ではない。直接pushしてよいのは`release/office`、`gitbash`、`wsl-ubuntu`の3ブランチのみ
+- 共通設定の変更(シェル設定、NeoVim設定など)は必ずmasterで行う。`release/office`で直接変更しない
+- 同期は`master`→`release/office`の一方向のみ。masterの変更をローカルで`release/office`にmergeしてpushする
+- `release/office`の変更(仕事用プロファイルなど)はmasterへ戻さない
+- **`release/office`への同期にPRは不要**。ローカルで`git merge`して直接pushしてよい
+- グローバルルールとの関係: **PR必須**はこの同期マージのみ例外。**masterへの直接コミット禁止 / ブランチ作成必須 / rebase禁止**は例外ではない。直接pushしてよいのは`release/office`のみ
 
 ### 同期時の注意
 
-- ローカルrefは各ブランチとも数十コミット古いままのことが多い。必ず`git fetch --all --prune`から始める
+- ローカルrefは古いままのことが多い。必ず`git fetch --all --prune`から始める
 - `pull`・`merge`には`--no-rebase`を明示する。`pull.rebase`の設定値に左右されずrebase禁止を担保するため
-- コンフリクトしたらそのブランチで止める。未解決のまま次のブランチへ進まない
-- 同期漏れの確認は`origin/<branch>..origin/master`のコミット数で見る。ローカルref同士の比較はローカルが古いだけで無意味な値が出る
+- コンフリクトしたらそこで止める。未解決のままpushしない
+- 同期漏れの確認は`origin/release/office..origin/master`のコミット数で見る。ローカルref同士の比較はローカルが古いだけで無意味な値が出る
 
 ### 同期時の注意箇所
 
 | ファイル | 方針 |
 |---|---|
-| `.claude.md` | 各ブランチが独自に再編しがちで衝突しやすい。行単位の自動マージに任せず、見出し・項目単位で手動マージする |
-| `set.zsh` | `gitbash`のセットアップ実体は`set.bash`（`set.zsh`を参照しない自己完結スクリプト）。`set.zsh`はmasterと同一に保てば衝突しない。削除するとmodify/deleteコンフリクトになるので消さない。gitbash向けの変更は`set.bash`だけに入れる |
-| `.zshrc` | 環境固有の末尾追記や`linux*`ブロックのエイリアスはブランチ側を残し、共通部分だけmasterを取り込む |
-| `.gitconfig` | `gitbash`の`autocrlf`など環境固有行をマージ時に消さない |
-| `.claude/settings.local.json` | ローカル専用設定。masterへ逆流させない |
+| `.claude.md` | `release/office`側で業務向けに再編されていると衝突しやすい。行単位の自動マージに任せず、見出し・項目単位で手動マージする |
+| `.zshrc` | `release/office`固有の追記(仕事用の設定)はブランチ側を残し、共通部分だけmasterを取り込む |
+| `.claude/settings.local.json` | ローカル専用設定。masterへ持ち込まない |
 
-`nvim/`配下はOS非依存なので、NeoVim設定の変更はmasterで行い環境ブランチ側では直接触らない。環境ブランチで変更すると以後の同期で衝突源になる。
+`nvim/`配下はOS非依存なので、NeoVim設定の変更はmasterで行い`release/office`側では直接触らない。ブランチ側で変更すると以後の同期で衝突源になる。
