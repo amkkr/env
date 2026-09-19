@@ -73,7 +73,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Bat theme
 export BAT_THEME=gruvbox-dark
 
-# Claude Code 
-
+# Claude Code Allow Agentic Teams
 export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
-export CLAUDE_CODE_SUBAGENT_MODEL="opus"
+# Claude Code subagent default model
+export CLAUDE_CODE_SUBAGENT_MODEL=opus
