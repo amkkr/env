@@ -197,4 +197,6 @@ eval "$(direnv hook zsh)"
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 
 # Claude Code Allow Agentic Teams
-CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
+export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
+# Claude Code subagent default model
+export CLAUDE_CODE_SUBAGENT_MODEL=opus
