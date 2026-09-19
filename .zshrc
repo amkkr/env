@@ -9,7 +9,8 @@ autoload colors && colors
 
 # History configuration
 HISTFILE=~/.histfile
-HISTSIZE=1000 SAVEHIST=1000
+HISTSIZE=1000
+SAVEHIST=1000
 
 # Key bindings
 bindkey "^[[1;5C" forward-word
