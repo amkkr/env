@@ -71,6 +71,45 @@ voice_input_enabled = false
 rules_enabled = false
 warp_drive_context_enabled = false
 
+[agents.execution_profiles]
+
+[agents.execution_profiles.default]
+apply_code_diffs = "always_ask"
+ask_user_question = "always_ask"
+autosync_plans_to_warp_drive = false
+command_allowlist = []
+command_denylist = [
+  'bash(\s.*)?',
+  'fish(\s.*)?',
+  'pwsh(\s.*)?',
+  'sh(\s.*)?',
+  'zsh(\s.*)?',
+  'curl(\s.*)?',
+  'eval(\s.*)?',
+  'exec(\s.*)?',
+  'source(\s.*)?',
+  'wget(\s.*)?',
+  'dig(\s.*)?',
+  'nslookup(\s.*)?',
+  'host(\s.*)?',
+  'ssh(\s.*)?',
+  'scp(\s.*)?',
+  'rsync(\s.*)?',
+  'telnet(\s.*)?',
+  'rm(\s.*)?',
+]
+computer_use = "always_ask"
+directory_allowlist = []
+execute_commands = "always_ask"
+mcp_allowlist = []
+mcp_denylist = []
+mcp_permissions = "always_ask"
+name = "Default"
+read_files = "always_ask"
+run_agents = "always_ask"
+web_search_enabled = false
+write_to_pty = "always_ask"
+
 [terminal]
 focus_reporting_enabled = false
 mouse_reporting_enabled = false
@@ -155,6 +194,7 @@ enable_ssh_warpification = false
 
 [code.editor]
 prefer_markdown_viewer = false
+show_hidden_files = true
 
 [account]
 is_settings_sync_enabled = true
