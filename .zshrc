@@ -195,8 +195,8 @@ eval "$(direnv hook zsh)"
 # Tab completion for packages
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 
-# Claude Code Allow Agentic Teams
-CLAUDE_CODE_SUBAGENT_MODEL=opus
+# Claude Code subagent default model
+export CLAUDE_CODE_SUBAGENT_MODEL=opus
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/yakuratenshin/.docker/completions $fpath)
 autoload -Uz compinit
