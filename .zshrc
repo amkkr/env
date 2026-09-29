@@ -168,7 +168,9 @@ export PATH="/home/amkkr/.deno/bin:$PATH"
 # Bun environment
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-[ -s "/Users/amkkr/.bun/_bun" ] && source "/Users/amkkr/.bun/_bun"
+# Keep the next line as is: `bun completions` checks it to avoid appending a duplicate
+# bun completions
+[ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"
 
 # Rust environment
 . "$HOME/.cargo/env"  
