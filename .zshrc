@@ -23,9 +23,6 @@ bindkey "^[[3~"   delete-char
 # Git Integration and Prompt
 # -----------------------------------------------------------------------------
 source ~/.zsh/git-prompt.sh
-fpath=(~/.zsh ~/.docker/completions $fpath)
-zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
-autoload -Uz compinit && compinit -C
 
 # Git prompt options
 GIT_PS1_SHOWDIRTYSTATE=true
@@ -71,6 +68,15 @@ case ${OSTYPE} in
         eval "$(/opt/homebrew/bin/brew shellenv)"
         ;;
 esac
+
+# -----------------------------------------------------------------------------
+# Completion
+# -----------------------------------------------------------------------------
+# Run compinit after all fpath additions (including brew shellenv above)
+# and before scripts that call compdef (bun, gcloud, tabtab below)
+fpath=(~/.zsh ~/.docker/completions $fpath)
+zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
+autoload -Uz compinit && compinit -C
 
 # -----------------------------------------------------------------------------
 # Aliases
@@ -162,7 +168,9 @@ export PATH="/home/amkkr/.deno/bin:$PATH"
 # Bun environment
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-[ -s "/Users/amkkr/.bun/_bun" ] && source "/Users/amkkr/.bun/_bun"
+# Keep the next line as is: `bun completions` checks it to avoid appending a duplicate
+# bun completions
+[ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"
 
 # Rust environment
 . "$HOME/.cargo/env"  
