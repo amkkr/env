@@ -23,9 +23,6 @@ bindkey "^[[3~"   delete-char
 # Git Integration and Prompt
 # -----------------------------------------------------------------------------
 source ~/.zsh/git-prompt.sh
-fpath=(~/.zsh ~/.docker/completions $fpath)
-zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
-autoload -Uz compinit && compinit -C
 
 # Git prompt options
 GIT_PS1_SHOWDIRTYSTATE=true
@@ -71,6 +68,15 @@ case ${OSTYPE} in
         eval "$(/opt/homebrew/bin/brew shellenv)"
         ;;
 esac
+
+# -----------------------------------------------------------------------------
+# Completion
+# -----------------------------------------------------------------------------
+# Run compinit after all fpath additions (including brew shellenv above)
+# and before scripts that call compdef (bun, gcloud, tabtab below)
+fpath=(~/.zsh ~/.docker/completions $fpath)
+zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
+autoload -Uz compinit && compinit -C
 
 # -----------------------------------------------------------------------------
 # Aliases
