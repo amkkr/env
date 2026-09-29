@@ -200,8 +200,3 @@ eval "$(direnv hook zsh)"
 export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 # Claude Code subagent default model
 export CLAUDE_CODE_SUBAGENT_MODEL=opus
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/yakuratenshin/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
