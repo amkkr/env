@@ -57,6 +57,23 @@ Jetpack 'leafgarland/typescript-vim'
 Jetpack 'peitalin/vim-jsx-typescript'
 
 " ============================================
+" Markdown (Rendering & Editing)
+" ============================================
+" バッファ内 Markdown レンダラー
+" markdown / markdown_inline パーサとクエリは NeoVim 0.12 に同梱されており、
+" nvim-treesitter プラグインは不要 (実行時コードにも依存が無いことを確認済み)
+Jetpack 'MeanderingProgrammer/render-markdown.nvim'
+
+" ============================================
+" Treesitter (Syntax Highlighting)
+" ============================================
+" main ブランチ。master は NeoVim 0.12 非対応。
+" 既定ブランチは現状 main だが、変わると master の別 API を掴んで
+" 起動時エラーになるため明示する
+" 要 tree-sitter-cli 0.26.1+ (brew install tree-sitter-cli)
+Jetpack 'nvim-treesitter/nvim-treesitter', {'branch': 'main'}
+
+" ============================================
 " LSP & Completion
 " ============================================
 " nvim lsp

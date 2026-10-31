@@ -143,9 +143,9 @@ map('n', ']d', vim.diagnostic.goto_next, opts)
 -- Formatting
 -- ============================================
 -- Cmd+Shift+I or Alt+Shift+F: Format document (like VSCode)
-map('n', '<D-S-i>', function() require("conform").format({ async = true, lsp_fallback = true }) end, opts)
-map('n', '<A-S-f>', function() require("conform").format({ async = true, lsp_fallback = true }) end, opts)
-map('n', '<leader>f', function() require("conform").format({ async = true, lsp_fallback = true }) end, opts)
+map('n', '<D-S-i>', function() require("conform").format({ async = true, lsp_format = "fallback" }) end, opts)
+map('n', '<A-S-f>', function() require("conform").format({ async = true, lsp_format = "fallback" }) end, opts)
+map('n', '<leader>f', function() require("conform").format({ async = true, lsp_format = "fallback" }) end, opts)
 
 -- ============================================
 -- Terminal

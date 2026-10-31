@@ -6,6 +6,8 @@ VSCodeライクな操作性を持つ、モダンなNeovim設定です。
 
 ### 1. プラグインのインストール
 
+> **先に`tree-sitter-cli`を入れてください。** `:JetpackSync`はnvim-treesitterのパーサをビルドするため、`tree-sitter-cli`が無いとパーサごとに1件ずつ、計19件のビルドエラーが出ます。手順は「2. 外部ツールのインストール」を参照。
+
 ```bash
 # Neovimを開く
 nvim
@@ -40,7 +42,16 @@ pip install black
 
 # Go用 (goが既にインストールされている場合)
 go install golang.org/x/tools/cmd/gofmt@latest
+
+# Markdownフォーマッター (deno)
+# set.zshはdvm (Deno Version Manager) のみ導入するため、deno本体は別途必要
+dvm install
+
+# Treesitterパーサのコンパイルに必要 (0.26.1以上)
+brew install tree-sitter-cli
 ```
+
+> Linuxでは`tree-sitter-cli`は`cargo install tree-sitter-cli`で導入します
 
 ### 3. LSPサーバーのインストール
 
@@ -51,91 +62,147 @@ Neovimを開いて、以下のコマンドを実行:
 ```
 
 Masonが開いたら、以下をインストール:
+
 - `typescript-language-server` (TypeScript/JavaScript)
 - `lua-language-server` (Lua)
 - `gopls` (Go)
 - `intelephense` (PHP)
 
+## ⚠️ 注意: Markdownは保存時に自動フォーマットされます
+
+`.md`ファイルは保存時に`deno fmt`で整形されます。**既存ファイルを開いて保存すると、初回に広範囲が書き換わります。**
+
+書き換わる例:
+
+- リスト記号の統一 (`*` → `-`)
+- テーブルの桁揃え
+- **コードフェンス内のコード** (`` ```ts ``ブロックの中身にセミコロンが付く等)
+
+他人のリポジトリのREADMEを開く際は特に注意してください。
+
+### 止める方法
+
+| 方法              | 範囲                        |
+| ----------------- | --------------------------- |
+| `<leader>mf`      | 現在のバッファのみ (トグル) |
+| `:FormatDisable!` | 現在のバッファのみ          |
+| `:FormatDisable`  | 全体                        |
+| `:FormatEnable`   | 再有効化                    |
+
+`:FormatEnable`は`vim.b`をカレントバッファにしか設定しないため、`<leader>mf`や`:FormatDisable!`でバッファ単位に無効化した状態は、**当該バッファ上で** `:FormatEnable`しないと解除されません。
+
+なお`deno.json`/`deno.jsonc`があるプロジェクト配下では、リポジトリ側のdeno設定が尊重されます (`--prose-wrap`を上書きしません)。
+
 ## 📦 インストールされるプラグイン
 
 ### ファイル管理
+
 - **neo-tree.nvim** - ファイルエクスプローラ
 - **telescope.nvim** - ファジーファインダー (ファイル検索、grep等)
 - **barbar.nvim** - バッファ/タブライン
 
 ### Git統合
+
 - **gitsigns.nvim** - Git変更表示
 - **vim-fugitive** - Git操作
 - **lazygit.nvim** - LazyGitインターフェース
 
 ### コード編集
+
 - **conform.nvim** - 自動フォーマッター (保存時実行)
 - **editorconfig-vim** - EditorConfig対応
 
+### Markdown
+
+- **render-markdown.nvim** - バッファ内Markdownレンダリング
+
+### シンタックスハイライト
+
+- **nvim-treesitter** - Treesitterベースのハイライト (mainブランチ)
+
 ### LSP & 補完
+
 - **mason.nvim** - LSPインストーラー
 - **nvim-lspconfig** - LSP設定
 - **nvim-cmp** - 自動補完
 
 ### UI
+
 - **lualine.nvim** - ステータスライン
 - **gruvbox** - カラーテーマ
 
 ## ⌨️ キーバインド
 
 ### バッファ/タブ操作
-| キー | 動作 |
-|------|------|
-| `Shift+L` | 次のバッファ |
-| `Shift+H` | 前のバッファ |
-| `Cmd/Ctrl+W` | バッファを閉じる |
+
+| キー          | 動作              |
+| ------------- | ----------------- |
+| `Shift+L`     | 次のバッファ      |
+| `Shift+H`     | 前のバッファ      |
+| `Cmd/Ctrl+W`  | バッファを閉じる  |
 | `Cmd/Alt+1~9` | バッファ1~9に移動 |
 
 ### ファイル操作
-| キー | 動作 |
-|------|------|
-| `Cmd/Ctrl+P` | ファイル検索 |
-| `Cmd/Ctrl+Shift+F` | プロジェクト内検索 |
-| `Cmd/Ctrl+B` | ファイルエクスプローラ表示/非表示 (閉じると元のファイルに戻る) |
-| `Cmd/Ctrl+Shift+E` | ファイルエクスプローラにフォーカス |
-| `Ctrl+L` | エクスプローラから元のファイルに戻る (右ウィンドウへ移動) |
-| `Cmd/Ctrl+T` | 新規ファイル |
-| `Cmd/Ctrl+S` | 保存 |
+
+| キー               | 動作                                                           |
+| ------------------ | -------------------------------------------------------------- |
+| `Cmd/Ctrl+P`       | ファイル検索                                                   |
+| `Cmd/Ctrl+Shift+F` | プロジェクト内検索                                             |
+| `Cmd/Ctrl+B`       | ファイルエクスプローラ表示/非表示 (閉じると元のファイルに戻る) |
+| `Cmd/Ctrl+Shift+E` | ファイルエクスプローラにフォーカス                             |
+| `Ctrl+L`           | エクスプローラから元のファイルに戻る (右ウィンドウへ移動)      |
+| `Cmd/Ctrl+T`       | 新規ファイル                                                   |
+| `Cmd/Ctrl+S`       | 保存                                                           |
 
 ### Git操作
-| キー | 動作 |
-|------|------|
-| `Cmd/Ctrl+Shift+G` | LazyGitを開く |
-| `]c` / `[c` | 次/前の変更箇所に移動 |
-| `<leader>gb` | Git blameの表示切替 |
+
+| キー               | 動作                  |
+| ------------------ | --------------------- |
+| `Cmd/Ctrl+Shift+G` | LazyGitを開く         |
+| `]c` / `[c`        | 次/前の変更箇所に移動 |
+| `<leader>gb`       | Git blameの表示切替   |
 
 ### LSP操作
-| キー | 動作 |
-|------|------|
-| `gd` | 定義にジャンプ |
-| `gr` | 参照を表示 |
-| `K` | ホバー情報表示 |
-| `<F2>` | シンボル名変更 |
-| `<leader>ca` | コードアクション |
-| `[d` / `]d` | 次/前の診断に移動 |
+
+| キー         | 動作              |
+| ------------ | ----------------- |
+| `gd`         | 定義にジャンプ    |
+| `gr`         | 参照を表示        |
+| `K`          | ホバー情報表示    |
+| `<F2>`       | シンボル名変更    |
+| `<leader>ca` | コードアクション  |
+| `[d` / `]d`  | 次/前の診断に移動 |
 
 ### ナビゲーション
-| キー | 動作 |
-|------|------|
+
+| キー     | 動作 |
+| -------- | ---- |
 | `Ctrl+-` | 戻る |
 | `Ctrl+=` | 進む |
 
 ### フォーマット
-| キー | 動作 |
-|------|------|
+
+| キー          | 動作               |
+| ------------- | ------------------ |
 | `Cmd+Shift+I` | コードフォーマット |
-| `<leader>f` | コードフォーマット |
+| `<leader>f`   | コードフォーマット |
+
+### Markdown
+
+| キー         | 動作                                        |
+| ------------ | ------------------------------------------- |
+| `<leader>mp` | レンダリング表示の切替 (このバッファのみ)   |
+| `<leader>ms` | スペルチェックの切替                        |
+| `<leader>mf` | 保存時フォーマットの切替 (このバッファのみ) |
+| `gO`         | アウトライン表示 (NeoVim標準)               |
+| `]]` / `[[`  | 次/前の見出しに移動 (NeoVim標準)            |
 
 ### ターミナル
-| キー | 動作 |
-|------|------|
-| `Cmd+Shift+2` | ターミナルを開く |
-| `Ctrl+\`` | ターミナルを開く |
+
+| キー                 | 動作                 |
+| -------------------- | -------------------- |
+| `Cmd+Shift+2`        | ターミナルを開く     |
+| `Ctrl+\``            | ターミナルを開く     |
 | `Esc` (ターミナル内) | ノーマルモードに戻る |
 
 > `<leader>`キーはデフォルトで`Space`に設定されています
@@ -147,9 +214,12 @@ nvim/
 ├── init.lua              # エントリーポイント
 ├── config.vim            # 基本設定
 ├── plugins.vim           # プラグイン定義
-└── lua/
-    ├── plugin-config.lua # プラグイン設定
-    └── keybindings.lua   # キーバインド設定
+├── lua/
+│   ├── plugin-config.lua # プラグイン設定
+│   └── keybindings.lua   # キーバインド設定
+└── after/
+    └── ftplugin/
+        └── markdown.lua  # Markdown用のバッファローカル設定
 ```
 
 ## 📝 カスタマイズ
@@ -216,6 +286,29 @@ require("conform").setup({
 
 1. フォーマッターがインストールされているか確認
 2. `:ConformInfo`でステータス確認
+
+### Markdownがフォーマットされない
+
+1. `:ConformInfo`を開き、`Formatters for this buffer:`の下を確認
+2. `deno_fmt ready (markdown) /path/to/deno`と表示されていれば正常
+3. `deno_fmt unavailable: Command 'deno' not found`の場合はdenoがPATHにない → `dvm install`を実行
+4. GUI版NeoVimはログインシェルのPATHを引き継がず、`~/.dvm/bin`が入らない場合がある
+
+denoもprettierも見つからない場合、Markdownを開いた時に警告が表示されます。
+
+### 既知の制約: Go / Python / C系ではtreesitterが有効にならない
+
+`filetype.vim`が拡張子を独自のfiletypeに振っているため、treesitterのFileType autocmdに一致せず、これらの言語ではtreesitterハイライトが有効になりません。
+
+| 拡張子                        | 実際のfiletype | 期待されるfiletype |
+| ----------------------------- | -------------- | ------------------ |
+| `.py` / `.pyx`                | `py`           | `python`           |
+| `.go`                         | `tab4`         | `go`               |
+| `.c` / `.h` / `.cpp` / `.hpp` | `tab4`         | `c` / `cpp`        |
+
+`go` / `gomod` / `python`のパーサはコンパイルされますが使われません。将来`filetype.vim`を修正すれば即座に有効になるため、パーサ一覧からは削除していません。
+
+解消するには`filetype.vim`を廃止し、インデント設定を`after/ftplugin/{go,python,c}.lua`に移す必要があります (本設定の対象外)。
 
 ## 📚 参考リンク
 
